@@ -9,7 +9,6 @@ contract ERC23 {
 
   function transfer(address to, uint value) returns (bool ok);
   function transferFrom(address from, address to, uint value) returns (bool ok);
-  function transferToContract(address to, uint value) returns (bool ok);
   function approve(address spender, uint value) returns (bool ok);
   event Transfer(address indexed from, address indexed to, uint value);
   event Approval(address indexed owner, address indexed spender, uint value);
@@ -55,13 +54,25 @@ contract ERC23Token is ERC23 {
   mapping (address => mapping (address => uint)) allowed;
 
   function transfer(address _to, uint _value) returns (bool success) {
+    if(is_contract(_to))
+    {
+        transferToContract(_to, _value);
+    }
+    else
+    {
+        transferToAddress(_to, _value);
+    }
+    return true;
+  }
+
+  function transferToAddress(address _to, uint _value) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
     Transfer(msg.sender, _to, _value);
     return true;
   }
   
-  function transferToContract(address _to, uint _value) returns (bool success) {
+  function transferToContract(address _to, uint _value) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
     contractReciever reciever = contractReciever(_to);
@@ -69,6 +80,25 @@ contract ERC23Token is ERC23 {
     Transfer(msg.sender, _to, _value);
     return true;
   }
+  
+  function is_contract(address _addr) private returns (bool is_contract) {
+        if(assembl_size(_addr)>0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+  function assembl_size(address _addr) private returns (uint length) 
+    {
+        assembly {
+            // retrieve the size of the code on target address, this needs assembly
+            length := extcodesize(_addr)
+        }
+    }
 
   function transferFrom(address _from, address _to, uint _value) returns (bool success) {
     var _allowance = allowed[_from][msg.sender];
