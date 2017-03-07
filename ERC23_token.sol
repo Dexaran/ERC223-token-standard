@@ -30,6 +30,8 @@ contract ERC23 {
         supportedTokens[_token]=true;
     }
     
+    
+    //Fallback fuction called from token contract when token transaction to this contract appears
     function fallbackToken(address _from, uint _value){
     
         if(supportedTokens[msg.sender])
@@ -53,7 +55,9 @@ contract ERC23Token is ERC23 {
   mapping(address => uint) balances;
   mapping (address => mapping (address => uint)) allowed;
 
+// A function that is called when a user or another contract wants to transfer funds
   function transfer(address _to, uint _value) returns (bool success) {
+     //filtering if the target is a contract with bytecode inside it
     if(is_contract(_to))
     {
         transferToContract(_to, _value);
@@ -65,6 +69,7 @@ contract ERC23Token is ERC23 {
     return true;
   }
 
+//function that is called when transaction target is an address
   function transferToAddress(address _to, uint _value) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
@@ -72,6 +77,7 @@ contract ERC23Token is ERC23 {
     return true;
   }
   
+//function that is called when transaction target is a contract
   function transferToContract(address _to, uint _value) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
@@ -81,6 +87,7 @@ contract ERC23Token is ERC23 {
     return true;
   }
   
+  //assemble the given address bytecode. If bytecode exists then the _addr is a contract.
   function is_contract(address _addr) private returns (bool is_contract) {
         if(assembl_size(_addr)>0)
         {
@@ -92,6 +99,8 @@ contract ERC23Token is ERC23 {
         }
     }
     
+    //assembling function that is called to count a number of bytes of _addr bytecode.
+    //if _addr is an address (not a contract) returns 0.
   function assembl_size(address _addr) private returns (uint length) 
     {
         assembly {
