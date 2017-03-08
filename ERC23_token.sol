@@ -14,35 +14,6 @@ contract ERC23 {
   event Approval(address indexed owner, address indexed spender, uint value);
 }
 
- /*
- * Contract that is working with ERC23 tokens
- * it will take only specified tokents and prevent accident token transfers from another ERC23 contracts
- * like every contract is throwing accident ether transactions
- */
- 
- contract contractReciever is Owned{
-     
-    //supported token contracts are stored here
-    mapping (address => bool) supportedTokens;
-    
-    //contract creator can add supported tokens
-    function addToken(address _token) onlyOwner{
-        supportedTokens[_token]=true;
-    }
-    
-    
-    //Fallback fuction called from token contract when token transaction to this contract appears
-    function fallbackToken(address _from, uint _value){
-    
-        if(supportedTokens[msg.sender])
-        {
-            //on token transfer handler code here
-        }
-        //throw any accident transfers of not supported tokens
-        else{ throw; }
-    }
- }
-
 
  /*
  * ERC23 token by Dexaran
@@ -58,7 +29,7 @@ contract ERC23Token is ERC23 {
 // A function that is called when a user or another contract wants to transfer funds
   function transfer(address _to, uint _value) returns (bool success) {
      //filtering if the target is a contract with bytecode inside it
-    if(is_contract(_to))
+    if(isContract(_to))
     {
         transferToContract(_to, _value);
     }
@@ -88,24 +59,19 @@ contract ERC23Token is ERC23 {
   }
   
   //assemble the given address bytecode. If bytecode exists then the _addr is a contract.
-  function is_contract(address _addr) private returns (bool is_contract) {
-        if(assembl_size(_addr)>0)
+  function isContract(address _addr) private returns (bool is_contract) {
+      uint length;
+      assembly {
+            // retrieve the size of the code on target address, this needs assembly
+            length := extcodesize(_addr)
+        }
+        if(length>0)
         {
             return true;
         }
         else
         {
             return false;
-        }
-    }
-    
-    //assembling function that is called to count a number of bytes of _addr bytecode.
-    //if _addr is an address (not a contract) returns 0.
-  function assembl_size(address _addr) private returns (uint length) 
-    {
-        assembly {
-            // retrieve the size of the code on target address, this needs assembly
-            length := extcodesize(_addr)
         }
     }
 
