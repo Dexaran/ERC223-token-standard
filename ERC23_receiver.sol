@@ -6,23 +6,27 @@ pragma solidity ^0.4.9;
  * like every contract is throwing accident ether transactions
  */
  
- contract contractReciever {
+ contract ContractReciever {
      
     //supported token contracts are stored here
     mapping (address => bool) supportedTokens;
     
+    /*
     //contract creator can add supported tokens
     function addToken(address _token){     //onlyOwner
         supportedTokens[_token]=true;
     }
+    */
     
     //if token is now disabled, replacced or not supported for other reasons we it can be disabled
+    /*
     function removeToken(address _token){  //onlyOwner
         supportedTokens[_token]=false;
     }
+    */
     
     //Fallback fuction analogue called from token contract when token transaction to this contract appears
-    function fallbackToken(address _from, uint _value){
+    function tokenFallback(address _from, uint _value){
     
         if(supportedTokens[msg.sender])
         {
