@@ -26,7 +26,7 @@ pragma solidity ^0.4.9;
     */
     
     //Fallback fuction analogue called from token contract when token transaction to this contract appears
-    function tokenFallback(address _from, uint _value){
+    function tokenFallback(address _from, uint _value, bytes _data){
     
         if(supportedTokens[msg.sender])
         {
