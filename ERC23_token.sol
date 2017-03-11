@@ -57,7 +57,7 @@ contract ERC23Token is ERC23 {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
     contractReciever reciever = contractReciever(_to);
-    reciever.tokenFallback(msg.sender, _value);
+    reciever.tokenFallback(msg.sender, _value, _data);
     Transfer(msg.sender, _to, _value);
     return true;
   }
