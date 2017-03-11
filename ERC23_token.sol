@@ -1,5 +1,5 @@
 pragma solidity ^0.4.9;
-
+ 
  /* New ERC23 contract interface */
 
 contract ERC23 {
@@ -10,7 +10,7 @@ contract ERC23 {
   function transfer(address to, uint value, bytes data) returns (bool ok);
   function transferFrom(address from, address to, uint value) returns (bool ok);
   function approve(address spender, uint value) returns (bool ok);
-  event Transfer(address indexed from, address indexed to, uint value, bytes data);
+  event Transfer(address indexed from, address indexed to, uint value);
   event Approval(address indexed owner, address indexed spender, uint value);
 }
 
@@ -26,7 +26,10 @@ contract ERC23Token is ERC23 {
   mapping(address => uint) balances;
   mapping (address => mapping (address => uint)) allowed;
   
-  
+  function ERC23Token() {
+      balances[msg.sender]=1000023;
+  }
+
 // A function that is called when a user or another contract wants to transfer funds
   function transfer(address _to, uint _value, bytes _data) returns (bool success) {
      //filtering if the target is a contract with bytecode inside it
@@ -45,7 +48,7 @@ contract ERC23Token is ERC23 {
   function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
-    Transfer(msg.sender, _to, _value, _data);
+    Transfer(msg.sender, _to, _value);
     return true;
   }
   
@@ -53,9 +56,9 @@ contract ERC23Token is ERC23 {
   function transferToContract(address _to, uint _value, bytes _data) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
-    ContractReciever reciever = ContractReciever(_to);
-    reciever.tokenFallback(msg.sender, _value, _data);
-    Transfer(msg.sender, _to, _value, _data);
+    contractReciever reciever = contractReciever(_to);
+    reciever.tokenFallback(msg.sender, _value);
+    Transfer(msg.sender, _to, _value);
     return true;
   }
   
@@ -88,7 +91,7 @@ contract ERC23Token is ERC23 {
     balances[_from] -= _value;
     allowed[_from][msg.sender] -= _value;
     bytes emptyData;
-    Transfer(_from, _to, _value, emptyData);
+    Transfer(_from, _to, _value);
     return true;
   }
 
