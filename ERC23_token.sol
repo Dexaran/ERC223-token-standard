@@ -39,6 +39,21 @@ contract ERC23Token is ERC23 {
     }
     return true;
   }
+  
+  function transfer(address _to, uint _value) returns (bool success) {
+      
+      //A standard function transfer similar to ERC20 transfer with no _data
+    bytes emptyData;
+    if(isContract(_to))
+    {
+        transferToContract(_to, _value, emptyData);
+    }
+    else
+    {
+        transferToAddress(_to, _value, emptyData);
+    }
+    return true;
+  }
 
 //function that is called when transaction target is an address
   function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
@@ -52,7 +67,7 @@ contract ERC23Token is ERC23 {
   function transferToContract(address _to, uint _value, bytes _data) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
-    contractReciever reciever = contractReciever(_to);
+    contractReceiver reciever = contractReceiver(_to);
     reciever.tokenFallback(msg.sender, _value, _data);
     Transfer(msg.sender, _to, _value);
     return true;
