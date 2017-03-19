@@ -27,15 +27,13 @@ contract ERC23Token is ERC23 {
   mapping(address => uint) balances;
   mapping (address => mapping (address => uint)) allowed;
 
-// A function that is called when a user or another contract wants to transfer funds
+  //function that is called when a user or another contract wants to transfer funds
   function transfer(address _to, uint _value, bytes _data) returns (bool success) {
-     //filtering if the target is a contract with bytecode inside it
-    if(isContract(_to))
-    {
+    //filtering if the target is a contract with bytecode inside it
+    if(isContract(_to)) {
         transferToContract(_to, _value, _data);
     }
-    else
-    {
+    else {
         transferToAddress(_to, _value, _data);
     }
     return true;
@@ -43,20 +41,19 @@ contract ERC23Token is ERC23 {
   
   function transfer(address _to, uint _value) returns (bool success) {
       
-      //A standard function transfer similar to ERC20 transfer with no _data
+    //standard function transfer similar to ERC20 transfer with no _data
+    //added due to backwards compatibility reasons
     bytes emptyData;
-    if(isContract(_to))
-    {
+    if(isContract(_to)) {
         transferToContract(_to, _value, emptyData);
     }
-    else
-    {
+    else {
         transferToAddress(_to, _value, emptyData);
     }
     return true;
   }
 
-//function that is called when transaction target is an address
+  //function that is called when transaction target is an address
   function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
@@ -64,7 +61,7 @@ contract ERC23Token is ERC23 {
     return true;
   }
   
-//function that is called when transaction target is a contract
+  //function that is called when transaction target is a contract
   function transferToContract(address _to, uint _value, bytes _data) private returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
@@ -78,24 +75,21 @@ contract ERC23Token is ERC23 {
   function isContract(address _addr) private returns (bool is_contract) {
       uint length;
       assembly {
-            // retrieve the size of the code on target address, this needs assembly
+            //retrieve the size of the code on target address, this needs assembly
             length := extcodesize(_addr)
         }
-        if(length>0)
-        {
+        if(length>0) {
             return true;
         }
-        else
-        {
+        else {
             return false;
         }
     }
 
   function transferFrom(address _from, address _to, uint _value) returns (bool success) {
     var _allowance = allowed[_from][msg.sender];
-    // Check if we are not using SafeMath
     
-    if(_value > _allowance){
+    if(_value > _allowance) {
         throw;
     }
 
@@ -119,4 +113,4 @@ contract ERC23Token is ERC23 {
   function allowance(address _owner, address _spender) constant returns (uint remaining) {
     return allowed[_owner][_spender];
   }
-} 
+}
