@@ -8,9 +8,6 @@ ERC23 is a modification of ERC20 token standard.
   3. ERC20 token transaction between wallet address and contract is a couple of two different transactions in fact: You should call `approve` on token contract and then call `transferFrom` on another contract when you want to deposit your tokens intor it.
   4. Ether transactions and token transactions behave different: one of the goals of developing ERC23 was to make token transactions similar to Ether transactions to avoid users mistakes when transferring tokens and make interaction with token transactions easier for contract developers.
   
-  ERC23 tokens are backwards compatible with ERC20 tokens. It means that ERC23 supports every ERC20 functional and contracts or services working with ERC20 tokens will work with ERC23 tokens correctly.
-ERC23 tokens should be sent by calling `transfer` function on token contract with no difference is receiver a contract or a wallet address. If the receiver is a wallet ERC23 token transfer will be same to ERC20 transfer. If the receiver is a contract ERC23 token contract will try to call `tokenFallback` function on receiver contract. If there is no `tokenFallback` function on receiver contract transaction will fail. `tokenFallback` function is analogue of `fallback` function for Ether transactions. It can be used to handle incoming transactions. There is a way to attach `bytes _data` to token transaction similar to `_data` attached to Ether transactions. It will pass through token contract and will be handled by `tokenFallback` function on receiver contract. There is also a way to call `transfer` function on ERC23 token contract with no data argument or using ERC20 ABI with no data on `transfer` function. In this case `_data` will be empty bytes array.
-
 ### ERC23 advantages.
   1. Provides a possibility to avoid accidentally lost tokens inside contracts that are not designed to work with sent tokens.
   2. Allows users to send their tokens anywhere with one function `transfer`. No difference between is the receiver a contract or not. No need to learn how token contract is working for regular user to send tokens.
@@ -19,8 +16,12 @@ ERC23 tokens should be sent by calling `transfer` function on token contract wit
   5. Allows to deposit tokens intor contract with a single transaction. Prevents extra blockchain bloating. 
   6. Makes token transactions similar to Ether transactions.
   
- ERC23 EIP https://github.com/ethereum/EIPs/issues/223
- ERC20 EIP https://github.com/ethereum/EIPs/issues/20
+  ERC23 tokens are backwards compatible with ERC20 tokens. It means that ERC23 supports every ERC20 functional and contracts or services working with ERC20 tokens will work with ERC23 tokens correctly.
+ERC23 tokens should be sent by calling `transfer` function on token contract with no difference is receiver a contract or a wallet address. If the receiver is a wallet ERC23 token transfer will be same to ERC20 transfer. If the receiver is a contract ERC23 token contract will try to call `tokenFallback` function on receiver contract. If there is no `tokenFallback` function on receiver contract transaction will fail. `tokenFallback` function is analogue of `fallback` function for Ether transactions. It can be used to handle incoming transactions. There is a way to attach `bytes _data` to token transaction similar to `_data` attached to Ether transactions. It will pass through token contract and will be handled by `tokenFallback` function on receiver contract. There is also a way to call `transfer` function on ERC23 token contract with no data argument or using ERC20 ABI with no data on `transfer` function. In this case `_data` will be empty bytes array.
+
+  
+` ERC23 EIP https://github.com/ethereum/EIPs/issues/223
+` ERC20 EIP https://github.com/ethereum/EIPs/issues/20
  
  
   
