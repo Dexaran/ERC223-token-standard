@@ -21,7 +21,8 @@ ERC23 tokens should be sent by calling `transfer` function on token contract wit
 
 ERC23 EIP https://github.com/ethereum/EIPs/issues/223
 ERC20 EIP https://github.com/ethereum/EIPs/issues/20
- 
+
+ ### Lost tokens held by contracts
 There is already a number of tokens held by token contracts themselves. This tokens will not be accessible as there is no function to withdraw them from contract.
 
 43071 GNT in Golem contract ~ $1000:
