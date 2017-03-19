@@ -29,6 +29,7 @@ contract ERC23Token is ERC23 {
 
   //function that is called when a user or another contract wants to transfer funds
   function transfer(address _to, uint _value, bytes _data) returns (bool success) {
+  
     //filtering if the target is a contract with bytecode inside it
     if(isContract(_to)) {
         transferToContract(_to, _value, _data);
