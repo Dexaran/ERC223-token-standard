@@ -28,10 +28,13 @@ pragma solidity ^0.4.9;
     
         //if(supportedTokens[msg.sender])
         //{
-            //on token transfer handler code here
+        //    on token transfer handler code here
         //}
         //throw any accident transfers of not supported tokens
         //else{ throw; }
+        
+        //a simple way to call a raw data without parsing
+        //address(_to).call.value(0)(_data)
         
         throw;
     }
