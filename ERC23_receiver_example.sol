@@ -12,29 +12,30 @@ pragma solidity ^0.4.9;
     //mapping (address => bool) supportedTokens;
     
     /*
-    //contract creator can add supported tokens
-    function addToken(address _token){     //onlyOwner
-        supportedTokens[_token]=true;
-    }
-    
-    //if token is now disabled, replacced or not supported for other reasons we it can be disabled
-    function removeToken(address _token){  //onlyOwner
-        supportedTokens[_token]=false;
-    }
+    *//contract creator can add supported tokens
+    *function addToken(address _token){     //onlyOwner
+    *    supportedTokens[_token]=true;
+    *}
+    *
+    *//if token is now disabled, replacced or not supported for other reasons we it can be disabled
+    *function removeToken(address _token){  //onlyOwner
+    *    supportedTokens[_token]=false;
+    *}
     */
     
     //Fallback fuction analogue called from token contract when token transaction to this contract appears
     function tokenFallback(address _from, uint _value, bytes _data){
     
-        //if(supportedTokens[msg.sender])
-        //{
-        //    on token transfer handler code here
-        //}
-        //throw any accident transfers of not supported tokens
-        //else{ throw; }
-        
-        //a simple way to call a raw data without parsing
-        //address(_to).call.value(0)(_data)
+        /*if(supportedTokens[msg.sender])
+        *{
+        *    on token transfer handler code here
+        *}
+        *throw any accident transfers of not supported tokens
+        *else{ throw; }
+        *
+        *a simple way to call a raw data without parsing:
+        *address(_to).call.value(0)(_data);
+        */
         
         throw;
     }
