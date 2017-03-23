@@ -8,16 +8,16 @@ pragma solidity ^0.4.9;
  
  contract ContractReciever {
      
-    //supported token contracts are stored here
-    //mapping (address => bool) supportedTokens;
-    
-    /*
-    *//contract creator can add supported tokens
+     /* /supported token contracts are stored here
+    * //mapping (address => bool) supportedTokens;
+    *
+    *
+    * //contract creator can add supported tokens
     *function addToken(address _token){     //onlyOwner
     *    supportedTokens[_token]=true;
     *}
     *
-    *//if token is now disabled, replacced or not supported for other reasons we it can be disabled
+    * //if token is now disabled, replacced or not supported for other reasons we it can be disabled
     *function removeToken(address _token){  //onlyOwner
     *    supportedTokens[_token]=false;
     *}
@@ -39,4 +39,4 @@ pragma solidity ^0.4.9;
         
         throw;
     }
- }
+}
