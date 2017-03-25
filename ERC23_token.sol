@@ -16,7 +16,7 @@ contract ERC23 {
 }
 
 
- /*
+ /**
  * ERC23 token by Dexaran
  *
  * https://github.com/Dexaran/ERC23-tokens
@@ -55,7 +55,7 @@ contract ERC23Token is ERC23 {
   }
 
   //function that is called when transaction target is an address
-  function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
+  function transferToAddress(address _to, uint _value, bytes _data) returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
     Transfer(msg.sender, _to, _value);
@@ -63,7 +63,7 @@ contract ERC23Token is ERC23 {
   }
   
   //function that is called when transaction target is a contract
-  function transferToContract(address _to, uint _value, bytes _data) private returns (bool success) {
+  function transferToContract(address _to, uint _value, bytes _data) returns (bool success) {
     balances[msg.sender] -= _value;
     balances[_to] += _value;
     contractReceiver reciever = contractReceiver(_to);
