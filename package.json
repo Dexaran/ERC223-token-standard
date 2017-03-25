@@ -1,0 +1,26 @@
+{
+  "name": "erc23",
+  "version": "0.1.0",
+  "description": "ERC23 token standard",
+  "main": "truffle.js",
+  "scripts": {
+    "test": "./test.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AragonOne/ERC23.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AragonOne/ERC23/issues"
+  },
+  "homepage": "https://github.com/AragonOne/ERC23",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.23.0",
+    "ethereumjs-testrpc": "^3.0.2",
+    "truffle": "https://github.com/ConsenSys/truffle.git#3.1.9"
+  }
+}
