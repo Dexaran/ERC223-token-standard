@@ -6,7 +6,7 @@ pragma solidity ^0.4.9;
  * like every contract is throwing accident ether transactions
  */
  
- contract ContractReciever {
+ contract ContractReceiver {
     function tokenFallback(address _from, uint _value, bytes _data){
       //Incoming transaction code here
     }
