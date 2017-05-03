@@ -64,14 +64,13 @@ contract ERC23Token is ERC23 {
         ContractReceiver reciever = ContractReceiver(_to);
         reciever.tokenFallback(msg.sender, _value, _data);
         Transfer(msg.sender, _to, _value, _data);
-        return true;
     }
     else {
         balances[msg.sender] -= _value;
         balances[_to] += _value;
         Transfer(msg.sender, _to, _value, _data);
-        return true;
     }
+    return true;
   }
   
   function transfer(address _to, uint _value) returns (bool success) {
