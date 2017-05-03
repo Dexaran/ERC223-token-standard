@@ -23,17 +23,19 @@ ERC23 EIP https://github.com/ethereum/EIPs/issues/223
 ERC20 EIP https://github.com/ethereum/EIPs/issues/20
 
  ### Lost tokens held by contracts
-There is already a number of tokens held by token contracts themselves. This tokens will not be accessible as there is no function to withdraw them from contract.
+There is already a number of tokens held by token contracts themselves. This tokens will not be accessible as there is no function to withdraw them from contract. This tokens are **lost**.
 
-43071 GNT in Golem contract ~ $1000:
+244131 GNT in Golem contract ~ $54333:
 https://etherscan.io/token/Golem?a=0xa74476443119a942de498590fe1f2454d7d4ac0d
 
-103 REP in Augur contract ~ $600:
+200 REP in Augur contract ~ $3292:
 https://etherscan.io/token/REP?a=0x48c80f1f4d53d5951e5d5438b54cba84f29f32a5
 
 777 DGD in Digix DAO contract ~ $7500:
 https://etherscan.io/token/0xe0b7927c4af23765cb51314a0e0521a9645f0e2a?a=0xe0b7927c4af23765cb51314a0e0521a9645f0e2a
 
-10100  1ST in FirstBlood contract ~ $883:
+10150  1ST in FirstBlood contract ~ $3466:
 https://etherscan.io/token/FirstBlood?a=0xaf30d2a7e90d7dc361c8c4585e9bb7d2f6f15bc7
   
+30 MLN in Melonport contract ~ $1197:
+https://etherscan.io/token/Melon?a=0xBEB9eF514a379B997e0798FDcC901Ee474B6D9A1+
