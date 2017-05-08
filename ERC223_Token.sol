@@ -16,6 +16,7 @@ contract ERC223Token is ERC223 {
   string public name;
   string public symbol;
   uint8 public decimals;
+  uint256 public totalSupply;
   
   
   // Function to access name of token .
@@ -29,6 +30,10 @@ contract ERC223Token is ERC223 {
   // Function to access decimals of token .
   function decimals() constant returns (uint8 _decimals) {
       return decimals;
+  }
+  // Function to access total supply of tokens .
+  function totalSupply() constant returns (uint256 _totalSupply) {
+      return totalSupply;
   }
   
   
