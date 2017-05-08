@@ -1,9 +1,7 @@
 pragma solidity ^0.4.9;
 
  /*
- * Contract that is working with ERC23 tokens
- * it will take only specified tokents and prevent accident token transfers from another ERC23 contracts
- * like every contract is throwing accident ether transactions
+ * Contract that is working with ERC223 tokens
  */
  
  contract ContractReceiver {
