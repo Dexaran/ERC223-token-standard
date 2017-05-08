@@ -9,6 +9,7 @@ contract ERC223 {
   function name() constant returns (string _name);
   function symbol() constant returns (string _symbol);
   function decimals() constant returns (uint8 _decimals);
+  function totalSupply() constant returns (uint256 _supply);
 
   function transfer(address to, uint value) returns (bool ok);
   function transfer(address to, uint value, bytes data) returns (bool ok);
