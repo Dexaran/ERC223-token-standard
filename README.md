@@ -23,7 +23,7 @@ ERC23 EIP https://github.com/ethereum/EIPs/issues/223
 ERC20 EIP https://github.com/ethereum/EIPs/issues/20
 
  ### Lost tokens held by contracts
-There is already a number of tokens held by token contracts themselves. This tokens will not be accessible as there is no function to withdraw them from contract. This tokens are **lost**.
+There is already a number of tokens held by token contracts themselves. These tokens will not be accessible as there is no function to withdraw them from contract. These tokens are **lost**, there is no way to retrieve them.
 
 244131 GNT in Golem contract ~ $54333:
 https://etherscan.io/token/Golem?a=0xa74476443119a942de498590fe1f2454d7d4ac0d
