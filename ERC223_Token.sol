@@ -9,7 +9,30 @@ import "./ERC223_Interface.sol";
  * https://github.com/Dexaran/ERC23-tokens
  */
  
-contract ERC223Token is ERC223 {
+ 
+ /* https://github.com/LykkeCity/EthereumApiDotNetCore/blob/master/src/ContractBuilder/contracts/token/SafeMath.sol */
+contract SafeMath {
+    uint256 constant public MAX_UINT256 =
+    0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
+
+    function safeAdd(uint256 x, uint256 y) constant internal returns (uint256 z) {
+        if (x > MAX_UINT256 - y) throw;
+        return x + y;
+    }
+
+    function safeSub(uint256 x, uint256 y) constant internal returns (uint256 z) {
+        if (x < y) throw;
+        return x - y;
+    }
+
+    function safeMul(uint256 x, uint256 y) constant internal returns (uint256 z) {
+        if (y == 0) return 0;
+        if (x > MAX_UINT256 / y) throw;
+        return x * y;
+    }
+}
+ 
+contract ERC223Token is ERC223, SafeMath {
 
   mapping(address => uint) balances;
   
@@ -83,16 +106,18 @@ contract ERC223Token is ERC223 {
 
   //function that is called when transaction target is an address
   function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
-    balances[msg.sender] -= _value;
-    balances[_to] += _value;
+    if (balanceOf(msg.sender) < _value) throw;
+    balances[msg.sender] = safeSub(balanceOf(msg.sender), _value);
+    balances[_to] = safeAdd(balanceOf(_to), _value);
     Transfer(msg.sender, _to, _value, _data);
     return true;
   }
   
   //function that is called when transaction target is a contract
   function transferToContract(address _to, uint _value, bytes _data) private returns (bool success) {
-    balances[msg.sender] -= _value;
-    balances[_to] += _value;
+    if (balanceOf(msg.sender) < _value) throw;
+    balances[msg.sender] = safeSub(balanceOf(msg.sender), _value);
+    balances[_to] = safeAdd(balanceOf(_to), _value);
     ContractReceiver reciever = ContractReceiver(_to);
     reciever.tokenFallback(msg.sender, _value, _data);
     Transfer(msg.sender, _to, _value, _data);
