@@ -1,11 +1,9 @@
-pragma solidity ^0.4.9;
+pragma solidity ^0.4.12;
 
  /*
  * Contract that is working with ERC223 tokens
  */
  
- contract ContractReceiver {
-    function tokenFallback(address _from, uint _value, bytes _data){
-      //Incoming transaction code here
-    }
+ interface ContractReceiver {
+    function tokenFallback(address _from, uint _value, bytes _data);
 }
