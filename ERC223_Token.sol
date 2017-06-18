@@ -80,12 +80,11 @@ contract ERC223Token is ERC223, SafeMath {
     //added due to backwards compatibility reasons
     bytes memory empty;
     if(isContract(_to)) {
-        transferToContract(_to, _value, empty);
+        return transferToContract(_to, _value, empty);
     }
     else {
-        transferToAddress(_to, _value, empty);
+        return transferToAddress(_to, _value, empty);
     }
-    return true;
 }
 
 //assemble the given address bytecode. If bytecode exists then the _addr is a contract.
