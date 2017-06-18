@@ -65,12 +65,11 @@ contract ERC223Token is ERC223, SafeMath {
   function transfer(address _to, uint _value, bytes _data) returns (bool success) {
       
     if(isContract(_to)) {
-        transferToContract(_to, _value, _data);
+        return transferToContract(_to, _value, _data);
     }
     else {
-        transferToAddress(_to, _value, _data);
+        return transferToAddress(_to, _value, _data);
     }
-    return true;
 }
   
   // Standard function transfer similar to ERC20 transfer with no _data .
