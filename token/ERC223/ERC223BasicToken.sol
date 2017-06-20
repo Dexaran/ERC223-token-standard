@@ -54,7 +54,7 @@ contract ERC223BasicToken is ERC223Basic{
             bytes memory empty;
             receiver.tokenFallback(msg.sender, value, empty);
         }
-        Transfer(msg.sender, to, value);
+        Transfer(msg.sender, to, value, data);
     }
 
     function balanceOf(address _owner) constant returns (uint balance) {
