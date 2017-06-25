@@ -34,6 +34,7 @@ contract ERC223BasicToken is ERC223Basic{
             ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
             receiver.tokenFallback(msg.sender, value, data);
         }
+        // Trigger ERC223 event for new ERC223 compatible Ðapps
         Transfer(msg.sender, to, value, data);
     }
 
@@ -49,12 +50,15 @@ contract ERC223BasicToken is ERC223Basic{
 
         balances[msg.sender] = balances[msg.sender].sub(value);
         balances[to] = balances[to].add(value);
+        bytes memory empty;
         if(codeLength>0) {
             ERC223ReceivingContract receiver = ERC223ReceivingContract(to);
-            bytes memory empty;
             receiver.tokenFallback(msg.sender, value, empty);
         }
-        Transfer(msg.sender, to, value, data);
+        // Trigger ERC20 event for compatibility with legacy ERC20 compatible only Ðapps
+        Transfer(msg.sender, to, value);
+        // Trigger ERC223 event for new ERC223 compatible Ðapps
+        Transfer(msg.sender, to, value, empty);
     }
 
     function balanceOf(address _owner) constant returns (uint balance) {
