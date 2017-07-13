@@ -1,24 +1,10 @@
-pragma solidity ^0.4.11;
-
-import './ERC223Basic.sol';
-import './ERC223ReceivingContract.sol';
-import '../../SafeMath.sol';
-
 contract ERC223BasicToken is ERC223Basic{
     using SafeMath for uint;
 
     mapping(address => uint) balances;
 
-    /**
-     * @dev Fix for the ERC20 short address attack.
-     */
-    modifier onlyPayloadSize(uint size) {
-        require(msg.data.length >= size + 4);
-        _;
-    }
-
     // Function that is called when a user or another contract wants to transfer funds .
-    function transfer(address to, uint value, bytes data) onlyPayloadSize(2 * 32) {
+    function transfer(address to, uint value, bytes data) {
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
         uint codeLength;
@@ -39,7 +25,7 @@ contract ERC223BasicToken is ERC223Basic{
 
     // Standard function transfer similar to ERC20 transfer with no _data .
     // Added due to backwards compatibility reasons .
-    function transfer(address to, uint value) onlyPayloadSize(2 * 32) {
+    function transfer(address to, uint value) {
         uint codeLength;
 
         assembly {
@@ -54,7 +40,7 @@ contract ERC223BasicToken is ERC223Basic{
             bytes memory empty;
             receiver.tokenFallback(msg.sender, value, empty);
         }
-        Transfer(msg.sender, to, value, data);
+        Transfer(msg.sender, to, value, empty);
     }
 
     function balanceOf(address _owner) constant returns (uint balance) {
