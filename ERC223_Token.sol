@@ -67,8 +67,8 @@ contract ERC223Token is ERC223, SafeMath {
         if (balanceOf(msg.sender) < _value) throw;
         balances[msg.sender] = safeSub(balanceOf(msg.sender), _value);
         balances[_to] = safeAdd(balanceOf(_to), _value);
-        ContractReceiver reciever = ContractReceiver(_to);
-        reciever.call.value(0)(bytes4(sha3(_custom_fallback)), msg.sender, _value, _data);
+        ContractReceiver receiver = ContractReceiver(_to);
+        receiver.call.value(0)(bytes4(sha3(_custom_fallback)), msg.sender, _value, _data);
         Transfer(msg.sender, _to, _value, _data);
         return true;
     }
@@ -133,8 +133,8 @@ contract ERC223Token is ERC223, SafeMath {
     if (balanceOf(msg.sender) < _value) throw;
     balances[msg.sender] = safeSub(balanceOf(msg.sender), _value);
     balances[_to] = safeAdd(balanceOf(_to), _value);
-    ContractReceiver reciever = ContractReceiver(_to);
-    reciever.tokenFallback(msg.sender, _value, _data);
+    ContractReceiver receiver = ContractReceiver(_to);
+    receiver.tokenFallback(msg.sender, _value, _data);
     Transfer(msg.sender, _to, _value, _data);
     return true;
 }
