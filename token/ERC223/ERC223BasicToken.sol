@@ -1,3 +1,9 @@
+pragma solidity ^0.4.11;
+
+import './ERC223Basic.sol';
+import './ERC223ReceivingContract.sol';
+import '../../SafeMath.sol';
+
 contract ERC223BasicToken is ERC223Basic{
     using SafeMath for uint;
 
