@@ -110,13 +110,8 @@ contract ERC223Token is ERC223, SafeMath {
       assembly {
             //retrieve the size of the code on target address, this needs assembly
             length := extcodesize(_addr)
-        }
-        if(length>0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+      }
+      return (length>0);
     }
 
   //function that is called when transaction target is an address
