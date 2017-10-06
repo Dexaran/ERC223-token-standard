@@ -4,7 +4,7 @@ import './ERC223_interface.sol';
 import './ERC223_receiving_contract.sol';
 import '../../SafeMath.sol';
 
-contract ERC223BasicToken is ERC223Basic{
+contract ERC223BasicToken is ERC223Interface{
     using SafeMath for uint;
 
     mapping(address => uint) balances;
