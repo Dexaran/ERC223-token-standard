@@ -12,7 +12,7 @@ ERC223 is a modification of ERC20 token standard.
   1. Provides a possibility to avoid accidentally lost tokens inside contracts that are not designed to work with sent tokens.
   2. Allows users to send their tokens anywhere with one function `transfer`. No difference between is the receiver a contract or not. No need to learn how token contract is working for regular user to send tokens.
   3. Allows contract developers to handle incoming token transactions.
-  4. ERC223 `transfer` to contract consumes 2 times less gas than ERC20 `approve` and `transferFrom` at receiver contract.
+  4. ERC223 `transfer` to contract consumes half as much gas as ERC20 `approve` and `transferFrom` at receiver contract.
   5. Allows to deposit tokens into contract with a single transaction. Prevents extra blockchain bloating. 
   6. Makes token transactions similar to Ether transactions.
   
