@@ -7,7 +7,7 @@ import '././SafeMath.sol';
 /**
  * @title ERC223 standard token implementation.
  */
-contract ERC223BasicToken is ERC223Interface {
+contract ERC223Token is ERC223Interface {
     using SafeMath for uint;
 
     mapping(address => uint) balances; // List of user balances.
