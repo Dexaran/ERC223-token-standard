@@ -5,7 +5,7 @@ import './ERC223_receiving_contract.sol';
 import '././SafeMath.sol';
 
 /**
- * @title ERC223 standard token implementation.
+ * @title Reference implementation of the ERC223 standard token.
  */
 contract ERC223Token is ERC223Interface {
     using SafeMath for uint;
