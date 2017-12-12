@@ -7,6 +7,7 @@ contract ERC20CompatibleToken {
 
     mapping(address => uint) balances; // List of user balances.
 
+    event Transfer(address indexed from, address indexed to, uint value);
   	event Approval(address indexed owner, address indexed spender, uint256 value);
   	mapping (address => mapping (address => uint256)) internal allowed;
 
