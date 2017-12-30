@@ -1,3 +1,7 @@
+# Proper simple token implementation.
+
+https://github.com/Dexaran/ERC223Token
+
 # ERC223 token standard.
 
 ERC223 is a modification of the ERC20 token standard.
