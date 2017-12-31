@@ -10,7 +10,7 @@ ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20) 
 
 [See EIP discussion](https://github.com/ethereum/EIPs/issues/223)
 
-```solidity
+```js
 contract ERC223 {
   function transfer(address to, uint value, bytes data) {
         uint codeLength;
