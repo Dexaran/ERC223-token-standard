@@ -1,4 +1,4 @@
-## Proper simple token implementation.
+## Proper minimal viable token implementation.
 
 https://github.com/Dexaran/ERC223Token
 
