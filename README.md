@@ -4,25 +4,42 @@ https://github.com/Dexaran/ERC223Token
 
 # ERC223 token standard.
 
-ERC223 is a modification of the ERC20 token standard.
+Here is a description of the ERC20 token standard problem that is solved by ERC223:
 
-### The main goals of developing ERC223 token standard were:
-  1. Accidentally lost tokens inside contracts: there are two different ways to transfer ERC20 tokens depending on: 1) is the receiver address a contract, or 2) a wallet address. You should call `transfer` to send tokens to a wallet address or call `approve` on token contract then `transferFrom` on receiver contract to send tokens to contract. Accidentally, a call of `transfer` function to a contract address will cause a loss of tokens inside receiver contract where tokens will never be accessibe.
-  2. Inability of handling incoming token transactions: an ERC20 token transaction is a call of `transfer` function inside the token contract. The ERC20 token contract does not notify the receiver when a transaction occurs. Also, there is no way to handle incoming token transactions on contract and no way to reject any non-supported tokens.
-  3. An ERC20 token transaction between a wallet address and a contract is a couple of two different transactions in fact: You should call `approve` on token contract and then call `transferFrom` on another contract when you want to deposit your tokens into it.
-  4. Ether transactions and token transactions behave different: one of the goals of developing ERC223 was to make token transactions similar to Ether transactions to avoid users mistakes when transferring tokens and make interaction with token transactions easier for contract developers.
-  
-### ERC223 advantages.
-  1. Provides the possibility of avoiding accidentally lost tokens inside contracts that are not designed to work with sent tokens.
-  2. Allows users to send their tokens anywhere with one function `transfer`. There is no difference between whether the receiver is a contract or not. There's no need to learn how a token contract is working for a regular user to send tokens.
-  3. Allows contract developers to handle incoming token transactions.
-  4. ERC223 `transfer` to contract consumes 2 times less gas than ERC20 `approve` and `transferFrom` at receiver contract.
-  5. Allows to deposit tokens intor contract with a single transaction. Prevents extra blockchain bloating. 
-  6. Makes token transactions similar to Ether transactions.
-  
-  ERC223 tokens are backwards compatible with ERC20 tokens. This means that ERC223 supports every ERC20 functional and contracts or services working with ERC20 tokens will work with ERC223 tokens correctly.
-  
-ERC223 tokens should be sent by calling the `transfer` function on a token contract, keeping in mind there is no difference if the receiver is a contract or a wallet address. If the receiver is a wallet, the ERC223 token transfer will be same as an ERC20 transfer. If the receiver is a contract, the ERC223 token contract will try to call `tokenFallback` function on receiver contract. If there is no `tokenFallback` function on the receiver, the contract transaction will fail. `tokenFallback` function is analogue of `fallback` function for Ether transactions, which can be used to handle incoming transactions. There is a way to attach `bytes _data` to token transaction similar to `_data` attached to Ether transactions. It will pass through token contract and will be handled by `tokenFallback` function on receiver contract. There is also a way to call `transfer` function on ERC223 token contract with no data argument or using ERC20 ABI with no data on `transfer` function. In this case `_data` will be empty bytes array.
+ERC20 token standard is leading to money losses for end users. The main problem is lack of possibility to handle incoming ERC20 transactions, that were performed via `transfer` function of ERC20 token.
+
+If you send 100 ETH to a contract that is not intended to work with Ether, then it will reject a transaction and nothing bad will happen. If you will send 100 ERC20 tokens to a contract that is not intended to work with ERC20 tokens, then it will not reject tokens because it cant recognize an incoming transaction. As the result, your tokens will get stuck at the contracts balance.
+
+How much ERC20 tokens are currently lost (27 Dec, 2017):
+
+1. QTUM, **$1,204,273** lost. [watch on Etherscan](https://etherscan.io/address/0x9a642d6b3368ddc662CA244bAdf32cDA716005BC)
+
+2. EOS, **$1,015,131** lost. [watch on Etherscan](https://etherscan.io/address/0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0)
+
+3. GNT, **$249,627** lost. [watch on Etherscan](https://etherscan.io/address/0xa74476443119A942dE498590Fe1f2454d7D4aC0d)
+
+4. STORJ, **$217,477** lost. [watch on Etherscan](https://etherscan.io/address/0xe41d2489571d322189246dafa5ebde1f4699f498)
+
+5. Tronix , **$201,232** lost. [watch on Etherscan](https://etherscan.io/address/0xf230b790e05390fc8295f4d3f60332c93bed42e2)
+
+6. DGD, **$151,826** lost. [watch on Etherscan](https://etherscan.io/address/0xe0b7927c4af23765cb51314a0e0521a9645f0e2a)
+
+7. OMG, **$149,941** lost. [watch on Etherscan](https://etherscan.io/address/0xd26114cd6ee289accf82350c8d8487fedb8a0c07)
+
+8. STORJ, **$102,560** lost. [watch on Etherscan](https://etherscan.io/address/0xb64ef51c888972c908cfacf59b47c1afbc0ab8ac)
+
+NOTE: These are only 8 token contracts that I know. Each Ethereum contract is a potential token trap for ERC20 tokens, thus, there are much more losses than I showed at this example.
+
+Another disadvantages of ERC20 that ERC223 will solve: 
+1. Lack of `transfer` handling possibility.
+2. Loss of tokens.
+3. Token-transactions should match Ethereum ideology of uniformity. When a user wants to transfer tokens, he should always call `transfer`. It doesn't matter if the user is depositing to a contract or sending to an externally owned account.
+
+Those will allow contracts to handle incoming token transactions and prevent accidentally sent tokens from being accepted by contracts (and stuck at contract's balance).
+
+For example decentralized exchange will no more need to require users to call `approve` then call `deposit` (which is internally calling `transferFrom` to withdraw approved tokens). Token transaction will automatically be handled at the exchange contract.
+
+The most important here is a call of `tokenFallback` when performing a transaction to a contract.
 
 ERC223 EIP https://github.com/ethereum/EIPs/issues/223
 ERC20 EIP https://github.com/ethereum/EIPs/issues/20
