@@ -104,9 +104,9 @@ ERC20 token standard is leading to money losses for end users. The main problem 
 
 If you send 100 ETH to a contract that is not intended to work with Ether, then it will reject a transaction and nothing bad will happen. If you will send 100 ERC20 tokens to a contract that is not intended to work with ERC20 tokens, then it will not reject tokens because it cant recognize an incoming transaction. As the result, your tokens will get stuck at the contracts balance.
 
-How much ERC20 tokens are currently lost (27 Dec, 2017):
+How much ERC20 tokens are currently lost (31 Dec, 2017):
 
-1. QTUM, **$1,204,273** lost. [watch on Etherscan](https://etherscan.io/address/0x9a642d6b3368ddc662CA244bAdf32cDA716005BC)
+1. QTUM, **$1,358,441** lost. [watch on Etherscan](https://etherscan.io/address/0x9a642d6b3368ddc662CA244bAdf32cDA716005BC)
 
 2. EOS, **$1,015,131** lost. [watch on Etherscan](https://etherscan.io/address/0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0)
 
