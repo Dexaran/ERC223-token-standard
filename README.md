@@ -14,6 +14,8 @@ https://github.com/Dexaran/ERC223Token
 
 ## ERC223 token standard.
 
+ERC20 token standard suffers [critical problems](https://medium.com/@dexaran820/erc20-token-standard-critical-problems-3c10fd48657b), that caused loss of approximately $3,000,000 at the moment (31 Dec, 2017). The main and the most important is lack of event handling mechanism of ERC20 standard.
+
 ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20) token standard. It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development. It is also a more safe standard as it doesn't allow token transfers to contracts that don't support token receiving and handling.
 
 [See EIP discussion](https://github.com/ethereum/EIPs/issues/223)
