@@ -11,11 +11,21 @@ ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20) 
 [See EIP discussion](https://github.com/ethereum/EIPs/issues/223)
 
 ```solidity
-// interfaces/ERC23.sol
-
-contract ERC23 is ERC20 {
-  function transfer(address to, uint value, bytes data) returns (bool ok);
-  function transferFrom(address from, address to, uint value, bytes data) returns (bool ok);
+contract ERC223 {
+  function transfer(address to, uint value, bytes data)
+  {
+        uint codeLength;
+        assembly {
+            codeLength := extcodesize(_to)
+        }
+        balances[msg.sender] = balances[msg.sender].sub(_value);
+        balances[_to] = balances[_to].add(_value);
+        if(codeLength>0) {
+            // Require proper transaction handling.
+            ERC223Receiver receiver = ERC223Receiver(_to);
+            receiver.tokenFallback(msg.sender, _value, _data);
+        }
+  }
 }
 ```
 
