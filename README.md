@@ -1,4 +1,14 @@
-## Proper minimal viable token implementation.
+## Implementation.
+
+### Current implementation
+
+This repo's contracts are separated in 3 parts:
+
+- [Interface](https://github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_interface.sol): The standard itself. The minimal common API ERC223 tokens and receivers to interact with each other.
+- [Proposed implementations](https://github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_token.sol): A first approach as to how this could be implemented.
+- [Receiver interface](https://github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_receiving_contract.sol): A dummy receiver that is intended to accept ERC223 tokens.
+
+### Minimal viable implementation of the token, ready for use.
 
 https://github.com/Dexaran/ERC223Token
 
@@ -71,14 +81,6 @@ The current `tkn` values are:
 - `tkn.value` the amount of tokens sent
 - `tkn.data` arbitrary data sent with the token transfer. Simulates ether `tx.data`.
 - `tkn.sig` the first 4 bytes of `tx.data` that determine what function is called.
-
-### Current implementation
-
-This repo's contracts are separated in 3 parts:
-
-- [Interfaces](/contracts/interface): The standard itself. The minimal common API ERC223 tokens and receivers to interact with each other.
-- [Proposed implementations](/contracts/implementation): A first approach as to how this could be implemented. In case of the [token](/contracts/implementation/Standard23Token.sol), it is built on top of heavily tested and used [Zeppelin's](http://openzeppelin.org) Standard Token, and then adds the specific ERC23 features on top. The [receiver](/contracts/implementation/StandardReceiver.sol) implementation is kept at the bare minimum for setting the `tkn` values and dispatching the call to the correct function.
-- [Examples](/contracts/example): A dummy token and receiver to see the API in action.
 
 ### The main goals of developing ERC223 token standard were:
   1. Accidentally lost tokens inside contracts: there are two different ways to transfer ERC20 tokens depending on is the receiver address a contract or a wallet address. You should call `transfer` to send tokens to a wallet address or call `approve` on token contract then `transferFrom` on receiver contract to send tokens to contract. Accidentally call of `transfer` function to a contract address will cause a loss of tokens inside receiver contract.
