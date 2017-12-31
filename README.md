@@ -4,8 +4,6 @@ https://github.com/Dexaran/ERC223Token
 
 ## ERC223 token standard.
 
-## ERC223
-
 ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20) token standard. It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development. It is also a more safe standard as it doesn't allow token transfers to contracts that don't support token receiving and handling.
 
 [See EIP discussion](https://github.com/ethereum/EIPs/issues/223)
