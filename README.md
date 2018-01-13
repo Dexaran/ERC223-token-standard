@@ -128,8 +128,6 @@ How much ERC20 tokens are currently lost (31 Dec, 2017):
 
 9. MANA, **$101,967** lost. [watch on Etherscan](https://etherscan.io/address/0x0f5d2fb29fb7d3cfee444a200298f468908cc942)
 
-NOTE: These are only 9 token contracts that I know. Each Ethereum contract is a potential token trap for ERC20 tokens, thus, there are much more losses than I showed at this example.
-
 Another disadvantages of ERC20 that ERC223 will solve: 
 1. Lack of `transfer` handling possibility.
 2. Loss of tokens.
