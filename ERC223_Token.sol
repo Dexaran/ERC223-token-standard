@@ -4,9 +4,9 @@ import "./Receiver_Interface.sol";
 import "./ERC223_Interface.sol";
 
  /**
- * ERC23 token by Dexaran
+ * ERC223 token by Dexaran
  *
- * https://github.com/Dexaran/ERC23-tokens
+ * https://github.com/Dexaran/ERC223-token-standard
  */
  
  
