@@ -103,7 +103,7 @@ contract ERC223Token is ERC223, SafeMath {
     }
 }
 
-//assemble the given address bytecode. If bytecode exists then the _addr is a contract.
+  //assemble the given address bytecode. If bytecode exists then the _addr is a contract.
   function isContract(address _addr) private view returns (bool is_contract) {
       uint length;
       assembly {
