@@ -11,8 +11,6 @@ import '././SafeMath.sol';
 contract ERC223Token is ERC223Interface, ERC20CompatibleToken {
     using SafeMath for uint;
 
-    mapping(address => uint) balances; // List of user balances.
-    
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      Invokes the `tokenFallback` function if the recipient is a contract.
@@ -42,7 +40,7 @@ contract ERC223Token is ERC223Interface, ERC20CompatibleToken {
         }
         Transfer(msg.sender, _to, _value, _data);
     }
-    
+
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
@@ -70,7 +68,7 @@ contract ERC223Token is ERC223Interface, ERC20CompatibleToken {
         Transfer(msg.sender, _to, _value, empty);
     }
 
-    
+
     /**
      * @dev Returns balance of the `_owner`.
      *
