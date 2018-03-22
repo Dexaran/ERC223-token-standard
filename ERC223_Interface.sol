@@ -1,6 +1,6 @@
 pragma solidity ^0.4.9;
 
- /* New ERC23 contract interface */
+ /* New ERC223 contract interface */
  
 contract ERC223 {
   uint public totalSupply;
