@@ -137,4 +137,9 @@ contract ERC223Token is ERC223, SafeMath {
   function balanceOf(address _owner) public view returns (uint balance) {
     return balances[_owner];
   }
+
+  // Fallback that prevents ETH from being sent to this contract
+  function () public payable {
+    revert();
+  }
 }
