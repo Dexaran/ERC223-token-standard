@@ -39,7 +39,7 @@ contract ERC223Token is ERC223Interface {
             ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
             receiver.tokenFallback(msg.sender, _value, _data);
         }
-        Transfer(msg.sender, _to, _value, _data);
+        emit Transfer(msg.sender, _to, _value, _data);
     }
     
     /**
@@ -66,7 +66,7 @@ contract ERC223Token is ERC223Interface {
             ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
             receiver.tokenFallback(msg.sender, _value, empty);
         }
-        Transfer(msg.sender, _to, _value, empty);
+        emit Transfer(msg.sender, _to, _value, empty);
     }
 
     
