@@ -22,7 +22,7 @@ ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20) 
 
 ```js
 contract ERC223 {
-  function transfer(address to, uint value, bytes data) {
+  function transfer(address to, uint256 value, bytes data) {
         uint codeLength;
         assembly {
             codeLength := extcodesize(_to)
@@ -54,7 +54,7 @@ contract ExampleReceiver is StandardReceiver {
     LogTokenPayable(tkn.addr, tkn.sender, tkn.value);
   }
 
-  event LogTokenPayable(address token, address sender, uint value);
+  event LogTokenPayable(address token, address sender, uint256 value);
 }
 ```
 

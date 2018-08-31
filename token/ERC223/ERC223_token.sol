@@ -8,9 +8,9 @@ import '././SafeMath.sol';
  * @title Reference implementation of the ERC223 standard token.
  */
 contract ERC223Token is ERC223Interface {
-    using SafeMath for uint;
+    using SafeMath for uint256;
 
-    mapping(address => uint) balances; // List of user balances.
+    mapping(address => uint256) balances; // List of user balances.
     
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
@@ -23,7 +23,7 @@ contract ERC223Token is ERC223Interface {
      * @param _value Amount of tokens that will be transferred.
      * @param _data  Transaction metadata.
      */
-    function transfer(address _to, uint _value, bytes _data) {
+    function transfer(address _to, unit256 _value, bytes _data) {
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
         uint codeLength;
@@ -51,7 +51,7 @@ contract ERC223Token is ERC223Interface {
      * @param _to    Receiver address.
      * @param _value Amount of tokens that will be transferred.
      */
-    function transfer(address _to, uint _value) {
+    function transfer(address _to, unit256 _value) {
         uint codeLength;
         bytes memory empty;
 
@@ -76,7 +76,7 @@ contract ERC223Token is ERC223Interface {
      * @param _owner   The address whose balance will be returned.
      * @return balance Balance of the `_owner`.
      */
-    function balanceOf(address _owner) constant returns (uint balance) {
+    function balanceOf(address _owner) constant returns (unit256 balance) {
         return balances[_owner];
     }
 }
