@@ -2,7 +2,7 @@ pragma solidity ^0.4.11;
 
 import './ERC223_interface.sol';
 import './ERC223_receiving_contract.sol';
-import '././SafeMath.sol';
+import '../SafeMath.sol';
 
 /**
  * @title Reference implementation of the ERC223 standard token.
