@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.5.0;
 
 import './ERC223_interface.sol';
 import './ERC223_receiving_contract.sol';
@@ -23,7 +23,7 @@ contract ERC223Token is ERC223Interface {
      * @param _value Amount of tokens that will be transferred.
      * @param _data  Transaction metadata.
      */
-    function transfer(address _to, uint _value, bytes _data) {
+    function transfer(address _to, uint _value, bytes memory _data) public {
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
         uint codeLength;
@@ -51,7 +51,7 @@ contract ERC223Token is ERC223Interface {
      * @param _to    Receiver address.
      * @param _value Amount of tokens that will be transferred.
      */
-    function transfer(address _to, uint _value) {
+    function transfer(address _to, uint _value) public {
         uint codeLength;
         bytes memory empty;
 
@@ -76,7 +76,7 @@ contract ERC223Token is ERC223Interface {
      * @param _owner   The address whose balance will be returned.
      * @return balance Balance of the `_owner`.
      */
-    function balanceOf(address _owner) constant returns (uint balance) {
+    function balanceOf(address _owner) public view returns (uint balance) {
         return balances[_owner];
     }
 }
