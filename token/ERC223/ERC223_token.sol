@@ -23,7 +23,7 @@ contract ERC223Token is ERC223Interface {
      * @param _value Amount of tokens that will be transferred.
      * @param _data  Transaction metadata.
      */
-    function transfer(address _to, uint _value, bytes memory _data) public {
+    function transfer(address _to, uint _value, bytes memory _data) public returns (bool success){
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
         uint codeLength;
@@ -40,6 +40,7 @@ contract ERC223Token is ERC223Interface {
             receiver.tokenFallback(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
+        return true;
     }
     
     /**
@@ -51,7 +52,7 @@ contract ERC223Token is ERC223Interface {
      * @param _to    Receiver address.
      * @param _value Amount of tokens that will be transferred.
      */
-    function transfer(address _to, uint _value) public {
+    function transfer(address _to, uint _value) public returns (bool success){
         uint codeLength;
         bytes memory empty = hex"000000000";
 
@@ -67,6 +68,7 @@ contract ERC223Token is ERC223Interface {
             receiver.tokenFallback(msg.sender, _value, empty);
         }
         emit Transfer(msg.sender, _to, _value, empty);
+        return true;
     }
 
     
