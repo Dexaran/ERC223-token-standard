@@ -53,7 +53,7 @@ contract ERC223Token is ERC223Interface {
      */
     function transfer(address _to, uint _value) public {
         uint codeLength;
-        bytes memory empty;
+        bytes memory empty = hex"000000000";
 
         assembly {
             // Retrieve the size of the code on target address, this needs assembly .
