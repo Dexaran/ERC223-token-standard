@@ -324,3 +324,4 @@ flycheck_*.el
 ### Custom
 
 /compiled/
+/.idea/
