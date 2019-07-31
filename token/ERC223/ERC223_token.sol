@@ -1,8 +1,8 @@
 pragma solidity ^0.5.0;
 
-//import './ERC223_interface.sol';
-//import './ERC223_receiving_contract.sol';
-//import './SafeMath.sol';
+import './ERC223_interface.sol';
+import './ERC223_receiving_contract.sol';
+import './SafeMath.sol';
 
 /**
 * imports for remix.ethereum.org
@@ -10,9 +10,9 @@ pragma solidity ^0.5.0;
 * https://solidity.readthedocs.io/en/latest/layout-of-source-files.html#use-in-actual-compilers
 * https://remix.readthedocs.io/en/stable/tutorial_import.html#importing-from-github
 */
-import "github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_interface.sol";
-import "github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_receiving_contract.sol";
-import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/math/SafeMath.sol";
+//import "https://github.com/Dexaran/ERC223-token-standard/token/ERC223/ERC223_interface.sol";
+//import "https://github.com/Dexaran/ERC223-token-standard/token/ERC223/ERC223_receiving_contract.sol";
+//import "https://github.com/OpenZeppelin/openzeppelin-contracts/contracts/math/SafeMath.sol";
 
 /**
  * @title Reference implementation of the ERC223 standard token.
