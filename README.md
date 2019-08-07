@@ -6,6 +6,12 @@ Main ERC223 contracts:
 - [ERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223.sol): Token contract. Defines logic of the base token of ERC223 standard.
 - [Recipient interface](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol): A dummy receiver that is intended to accept ERC223 tokens. Use `contract MyContract is IERC223Recipient` to make contract capable of accepting ERC223 token transactions. Otherwise token transfers to the contract that is not intended to accept ERC223 tokens will be reverted.
 
+### Extensions of the base functionality
+
+- [ERC223Mintable.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223Mintable.sol): Minting functinality for ERC223 tokens. Use `contract MyERC223Token is ERC223Mintable` to make your token mintable. The address you used to deploy this contract will receive Minter functinality and will be allowed to assign new minters and increase the totalSupply of the token.
+
+- [ERC223Burnable.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223Burnable.sol): Burning functionality implementation for ERC223 tokens. Use `contract MyERC223Token is ERC223Burnable` to make your token burnable. Allows any address to burn its tokens by calling the `burn` function of the contract. There is no possibility to burn someone else's tokens in this implementation.
+
 ### Minimal viable implementation of the token, ready for use.
 
 https://github.com/Dexaran/ERC223Token
