@@ -1,4 +1,5 @@
-    pragma solidity ^0.5.1;
+    
+pragma solidity ^0.5.1;
 
 /**
  * @dev Interface of the ERC777Token standard as defined in the EIP.
@@ -14,7 +15,7 @@ contract IERC223 {
     /**
      * @dev Returns the total supply of the token.
      */
-    uint public totalSupply;
+    uint public _totalSupply;
     
     /**
      * @dev Returns the balance of the `who` address.
