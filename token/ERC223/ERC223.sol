@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.1;
 
 import "./IERC223.sol";
 import "./IERC223Recipient.sol";
@@ -8,8 +8,9 @@ import "../../utils/Address.sol";
 /**
  * @title Reference implementation of the ERC223 standard token.
  */
-contract ERC223Token is ERC223Interface {
+contract ERC223Token is IERC223 {
     using SafeMath for uint;
+    using Address for address;
 
     mapping(address => uint) balances; // List of user balances.
     
@@ -27,17 +28,10 @@ contract ERC223Token is ERC223Interface {
     function transfer(address _to, uint _value, bytes memory _data) public returns (bool success){
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
-        uint codeLength;
-
-        assembly {
-            // Retrieve the size of the code on target address, this needs assembly .
-            codeLength := extcodesize(_to)
-        }
-
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
-        if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+        if(Address.isContract(_to)) {
+            IERC223Recipient receiver = IERC223Recipient(_to);
             receiver.tokenFallback(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
@@ -54,18 +48,11 @@ contract ERC223Token is ERC223Interface {
      * @param _value Amount of tokens that will be transferred.
      */
     function transfer(address _to, uint _value) public returns (bool success){
-        uint codeLength;
-        bytes memory empty = hex"000000000";
-
-        assembly {
-            // Retrieve the size of the code on target address, this needs assembly .
-            codeLength := extcodesize(_to)
-        }
-
+        bytes memory empty = hex"00000000";
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
-        if(codeLength>0) {
-            ERC223ReceivingContract receiver = ERC223ReceivingContract(_to);
+        if(Address.isContract(_to)) {
+            IERC223Recipient receiver = IERC223Recipient(_to);
             receiver.tokenFallback(msg.sender, _value, empty);
         }
         emit Transfer(msg.sender, _to, _value, empty);
