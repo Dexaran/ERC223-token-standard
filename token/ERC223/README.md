@@ -7,6 +7,10 @@ sections:
   - title: Hooks
     contracts:
       - IERC223Recipient
+  - title: Extensions
+    contracts:
+      - ERC223Burnable
+      - ERC223Mintable
 ---
 
 This set of interfaces and contracts are all related to the [ERC223 token standard](https://github.com/ethereum/EIPs/issues/223).
