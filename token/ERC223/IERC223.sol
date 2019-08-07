@@ -1,5 +1,4 @@
-    
-pragma solidity ^0.5.0;
+    pragma solidity ^0.5.1;
 
 /**
  * @dev Interface of the ERC777Token standard as defined in the EIP.
@@ -32,7 +31,7 @@ contract IERC223 {
      * @dev Transfers `value` tokens from `msg.sender` to `to` address with `data` parameter
      * and returns `true` on success.
      */
-    function transfer(address to, uint value, bytes memory data) public returns (bool success)
+    function transfer(address to, uint value, bytes memory data) public returns (bool success);
      
      /**
      * @dev Event that is fired on successful transfer.
