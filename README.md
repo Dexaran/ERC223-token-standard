@@ -1,8 +1,6 @@
-## Implementation.
-
 ### Current implementation
 
-This repo's contracts are separated in 3 parts:
+Main ERC223 contracts:
 
 - [IERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223.sol): Token interface. The minimal common API ERC223 tokens and receivers to interact with each other.
 - [ERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223.sol): Token contract. Defines logic of the base token of ERC223 standard.
