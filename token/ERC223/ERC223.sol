@@ -10,7 +10,13 @@ import "../../utils/Address.sol";
  */
 contract ERC223Token is IERC223 {
     using SafeMath for uint;
-    using Address for address;
+
+    /**
+     * @dev See `IERC223.totalSupply`.
+     */
+    function totalSupply() public view returns (uint256) {
+        return _totalSupply;
+    }
 
     mapping(address => uint) balances; // List of user balances.
     
