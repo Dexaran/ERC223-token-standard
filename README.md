@@ -4,9 +4,9 @@
 
 This repo's contracts are separated in 3 parts:
 
-- [Interface](https://github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_interface.sol): The standard itself. The minimal common API ERC223 tokens and receivers to interact with each other.
-- [Proposed implementations](https://github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_token.sol): A first approach as to how this could be implemented.
-- [Receiver interface](https://github.com/Dexaran/ERC223-token-standard/blob/master/token/ERC223/ERC223_receiving_contract.sol): A dummy receiver that is intended to accept ERC223 tokens.
+- [IERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223.sol): Token interface. The minimal common API ERC223 tokens and receivers to interact with each other.
+- [ERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223.sol): Token contract. Defines logic of the base token of ERC223 standard.
+- [Recipient interface](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol): A dummy receiver that is intended to accept ERC223 tokens. Use `contract MyContract is IERC223Recipient` to make contract capable of accepting ERC223 token transactions. Otherwise token transfers to the contract that is not intended to accept ERC223 tokens will be reverted.
 
 ### Minimal viable implementation of the token, ready for use.
 
