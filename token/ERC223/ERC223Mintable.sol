@@ -53,8 +53,11 @@ contract ERC223Mintable is ERC223Token {
      * - the caller must have the {MinterRole}.
      */
     function mint(address account, uint256 amount) public onlyMinter returns (bool) {
-        _totalSupply.add(amount);
-        balances[msg.sender].add(amount);
+        balances[account] = balances[account].add(amount);
+        _totalSupply = _totalSupply.add(amount);
+        
+        bytes memory empty = hex"00000000";
+        emit Transfer(address(0),account, amount, empty);
         return true;
     }
 }
