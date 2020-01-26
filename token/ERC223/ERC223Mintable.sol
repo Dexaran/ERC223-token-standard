@@ -54,7 +54,7 @@ contract ERC223Mintable is ERC223Token {
      */
     function mint(address account, uint256 amount) public onlyMinter returns (bool) {
         balances[account] = balances[account].add(amount);
-        _totalSupply = totalSupply.sub(amount);
+        _totalSupply = _totalSupply.add(amount);
         
         bytes memory empty = hex"00000000";
         emit Transfer(address(0),account, amount, empty);
