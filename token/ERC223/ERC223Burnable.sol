@@ -14,8 +14,8 @@ contract ERC223Burnable is ERC223Token {
      * See {ERC20-_burn}.
      */
     function burn(uint256 _amount) public {
-        balances[msg.sender] = balances[msg.sender].sub(amount);
-        totalSupply = totalSupply.sub(amount);
+        balances[msg.sender] = balances[msg.sender].sub(_amount);
+        totalSupply = totalSupply.sub(_amount);
         
         bytes memory empty = hex"00000000";
         emit Transfer(msg.sender, address(0), _amount, empty);
