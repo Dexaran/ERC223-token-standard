@@ -59,7 +59,7 @@ contract ERC223Mintable is ERC223Token {
         bytes memory empty = hex"00000000";
         if(Address.isContract(account)) {
             IERC223Recipient receiver = IERC223Recipient(account);
-            receiver.tokenFallback(msg.sender, amount, empty);
+            receiver.tokenFallback(address(0), amount, empty);
         }
         emit Transfer(address(0),account, amount, empty);
         return true;
