@@ -1,16 +1,13 @@
-pragma solidity ^0.5.1;
+pragma solidity ^0.8.0;
 
 import "./IERC223.sol";
 import "./IERC223Recipient.sol";
-import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
 
 /**
  * @title Reference implementation of the ERC223 standard token.
  */
 contract ERC223Token is IERC223 {
-    using SafeMath for uint;
-
     /**
      * @dev See `IERC223.totalSupply`.
      */
@@ -34,8 +31,8 @@ contract ERC223Token is IERC223 {
     function transfer(address _to, uint _value, bytes memory _data) public returns (bool success){
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
-        balances[msg.sender] = balances[msg.sender].sub(_value);
-        balances[_to] = balances[_to].add(_value);
+        balances[msg.sender] = balances[msg.sender] - _value;
+        balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
             IERC223Recipient receiver = IERC223Recipient(_to);
             receiver.tokenFallback(msg.sender, _value, _data);
@@ -55,8 +52,8 @@ contract ERC223Token is IERC223 {
      */
     function transfer(address _to, uint _value) public returns (bool success){
         bytes memory empty = hex"00000000";
-        balances[msg.sender] = balances[msg.sender].sub(_value);
-        balances[_to] = balances[_to].add(_value);
+        balances[msg.sender] = balances[msg.sender] - _value;
+        balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
             IERC223Recipient receiver = IERC223Recipient(_to);
             receiver.tokenFallback(msg.sender, _value, empty);
