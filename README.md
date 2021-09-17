@@ -38,7 +38,7 @@ contract ERC223 {
         if(codeLength>0) {
             // Require proper transaction handling.
             ERC223Receiver receiver = ERC223Receiver(_to);
-            receiver.tokenFallback(msg.sender, _value, _data);
+            receiver.tokenReceived(msg.sender, _value, _data);
         }
     }
 }
@@ -74,7 +74,7 @@ The function `foo()` will be called when a user transfers ERC223 tokens to the r
   erc223.transfer(receiverAddress, 10, 0xc2985578)
 ```
 
-What happens under the hood is that the ERC223 token will detect it is sending tokens to a contract address, and after setting the correct balances it will call the `tokenFallback` function on the receiver with the specified data. `StandardReceiver` will set the correct values for the `tkn` variables and then perform a `delegatecall` to itself with the specified data, this will result in the call to the desired function in the contract.
+What happens under the hood is that the ERC223 token will detect it is sending tokens to a contract address, and after setting the correct balances it will call the `tokenReceived` function on the receiver with the specified data. `StandardReceiver` will set the correct values for the `tkn` variables and then perform a `delegatecall` to itself with the specified data, this will result in the call to the desired function in the contract.
 
 The current `tkn` values are:
 
@@ -105,7 +105,7 @@ The current `tkn` values are:
   6. Makes token transactions similar to Ether transactions.
 
   ERC223 tokens are backwards compatible with ERC20 tokens. It means that ERC223 supports every ERC20 functional and contracts or services working with ERC20 tokens will work with ERC223 tokens correctly.
-ERC223 tokens should be sent by calling `transfer` function on token contract with no difference is receiver a contract or a wallet address. If the receiver is a wallet ERC223 token transfer will be same to ERC20 transfer. If the receiver is a contract ERC223 token contract will try to call `tokenFallback` function on receiver contract. If there is no `tokenFallback` function on receiver contract transaction will fail. `tokenFallback` function is analogue of `fallback` function for Ether transactions. It can be used to handle incoming transactions. There is a way to attach `bytes _data` to token transaction similar to `_data` attached to Ether transactions. It will pass through token contract and will be handled by `tokenFallback` function on receiver contract. There is also a way to call `transfer` function on ERC223 token contract with no data argument or using ERC20 ABI with no data on `transfer` function. In this case `_data` will be empty bytes array.
+ERC223 tokens should be sent by calling `transfer` function on token contract with no difference is receiver a contract or a wallet address. If the receiver is a wallet ERC223 token transfer will be same to ERC20 transfer. If the receiver is a contract ERC223 token contract will try to call `tokenReceived` function on receiver contract. If there is no `tokenReceived` function on receiver contract transaction will fail. `tokenReceived` function is analogue of `fallback` function for Ether transactions. It can be used to handle incoming transactions. There is a way to attach `bytes _data` to token transaction similar to `_data` attached to Ether transactions. It will pass through token contract and will be handled by `tokenReceived` function on receiver contract. There is also a way to call `transfer` function on ERC223 token contract with no data argument or using ERC20 ABI with no data on `transfer` function. In this case `_data` will be empty bytes array.
 
 ### The reason of designing ERC223 token standard.
 Here is a description of the ERC20 token standard problem that is solved by ERC223:
@@ -143,7 +143,7 @@ Those will allow contracts to handle incoming token transactions and prevent acc
 
 For example decentralized exchange will no more need to require users to call `approve` then call `deposit` (which is internally calling `transferFrom` to withdraw approved tokens). Token transaction will automatically be handled at the exchange contract.
 
-The most important here is a call of `tokenFallback` when performing a transaction to a contract.
+The most important here is a call of `tokenReceived` when performing a transaction to a contract.
 
 ERC223 EIP https://github.com/ethereum/EIPs/issues/223
 ERC20 EIP https://github.com/ethereum/EIPs/issues/20
