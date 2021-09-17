@@ -1,4 +1,4 @@
-pragma solidity ^0.5.1;
+pragma solidity ^0.8.0;
 
 import "./ERC223.sol";
 
@@ -53,8 +53,8 @@ contract ERC223Mintable is ERC223Token {
      * - the caller must have the {MinterRole}.
      */
     function mint(address account, uint256 amount) public onlyMinter returns (bool) {
-        balances[account] = balances[account].add(amount);
-        _totalSupply = _totalSupply.add(amount);
+        balances[account] = balances[account] + amount;
+        _totalSupply = _totalSupply + amount;
         
         bytes memory empty = hex"00000000";
         emit Transfer(address(0),account, amount, empty);
