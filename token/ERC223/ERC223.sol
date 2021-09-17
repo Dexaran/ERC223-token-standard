@@ -38,7 +38,7 @@ contract ERC223Token is IERC223 {
         balances[_to] = balances[_to].add(_value);
         if(Address.isContract(_to)) {
             IERC223Recipient receiver = IERC223Recipient(_to);
-            receiver.tokenFallback(msg.sender, _value, _data);
+            receiver.tokenReceived(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
         return true;
@@ -59,7 +59,7 @@ contract ERC223Token is IERC223 {
         balances[_to] = balances[_to].add(_value);
         if(Address.isContract(_to)) {
             IERC223Recipient receiver = IERC223Recipient(_to);
-            receiver.tokenFallback(msg.sender, _value, empty);
+            receiver.tokenReceived(msg.sender, _value, empty);
         }
         emit Transfer(msg.sender, _to, _value, empty);
         return true;
