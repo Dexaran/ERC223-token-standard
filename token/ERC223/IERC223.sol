@@ -31,5 +31,5 @@ abstract contract IERC223 {
      /**
      * @dev Event that is fired on successful transfer.
      */
-    event Transfer(address indexed from, address indexed to, uint value, bytes data);
+    event Transfer(address indexed from, address indexed to, uint value);
 }
