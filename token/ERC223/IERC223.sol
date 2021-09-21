@@ -32,4 +32,10 @@ abstract contract IERC223 {
      * @dev Event that is fired on successful transfer.
      */
     event Transfer(address indexed from, address indexed to, uint value);
+    
+     /**
+     * @dev Additional event that is fired on successful transfer and logs transfer metadata,
+     *      this event is implemented to keep Transfer event compatible with ERC20.
+     */
+    event TransferData(bytes data);
 }
