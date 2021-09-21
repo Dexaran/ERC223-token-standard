@@ -16,9 +16,9 @@ Main ERC223 contracts:
 
 ## ERC223 token standard.
 
-ERC20 token standard suffers [critical problems](https://medium.com/@dexaran820/erc20-token-standard-critical-problems-3c10fd48657b), that caused loss of approximately $3,000,000 at the moment (31 Dec, 2017). The main and the most important is lack of event handling mechanism of ERC20 standard.
+ERC20 token standard suffers [critical problems](https://medium.com/@dexaran820/erc20-token-standard-critical-problems-3c10fd48657b), that caused loss of approximately $3,000,000 at the moment (31 Dec, 2017). The main and the most important problem is the lack of event handling mechanism in ERC20 standard.
 
-ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20) token standard. It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development. It is also a more safe standard as it doesn't allow token transfers to contracts that don't support token receiving and handling.
+ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20). It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development. It is also a more secure standard as it doesn't allow token transfers to contracts that do not explicitly support token receiving.
 
 [See EIP discussion](https://github.com/ethereum/EIPs/issues/223)
 
@@ -40,13 +40,15 @@ contract ERC223 {
 }
 ```
 
-### The main goals of developing ERC223 token standard were:
-  1. Accidentally lost tokens inside contracts: there are two different ways to transfer ERC20 tokens depending on is the receiver address a contract or a wallet address. You should call `transfer` to send tokens to a wallet address or call `approve` on token contract then `transferFrom` on receiver contract to send tokens to contract. Accidentally call of `transfer` function to a contract address will cause a loss of tokens inside receiver contract.
-  2. Inability of handling incoming token transactions: ERC20 token transaction is a call of `transfer` function inside token contract. ERC20 token contract is not notifying receiver that transaction occurs. Also there is no way to handle incoming token transactions on contract and no way to reject any non-supported tokens.
-  3. ERC20 token transaction between wallet address and contract is a couple of two different transactions in fact: You should call `approve` on token contract and then call `transferFrom` on another contract when you want to deposit your tokens into it.
-  4. Ether transactions and token transactions behave different: one of the goals of developing ERC223 was to make token transactions similar to Ether transactions to avoid users mistakes when transferring tokens and make interaction with token transactions easier for contract developers.
+### The main problems of ERC20 that ERC223 solves
+
+  1. **Lost tokens**: there are two different ways to transfer ERC20 tokens depending on is the receiver address a contract or a wallet address. You should call `transfer` to send tokens to a wallet address or call `approve` on token contract then `transferFrom` on receiver contract to send tokens to contract. Accidentally call of `transfer` function to a contract address will cause a loss of tokens inside receiver contract.
+  2. **Impossibility of handling incoming token transactions / lack of event handling in ERC20**: ERC20 token transaction is a call of `transfer` function inside token contract. ERC20 token contract is not notifying receiver that transaction occurs. Also there is no way to handle incoming token transactions on contract and no way to reject any non-supported tokens.
+  3. **Optimization of ERC20 address-to-contract communication**: You should call `approve` on token contract and then call `transferFrom` on another contract when you want to deposit your tokens into it. In fact address-to-contract transfer is a couple of two different transactions in ERC20. It also costs twice more gas compared to ERC223 transfers. In ERC223 address-to-contract transfer is a single transaction just like address-to-address transfer.
+  4. **Ether transactions and token transactions behave differently**: one of the goals of developing ERC223 was to make token transactions similar to Ether transactions to avoid users mistakes when transferring tokens and make interaction with token transactions easier for contract developers.
 
 ### ERC223 advantages.
+
   1. Provides a possibility to avoid accidentally lost tokens inside contracts that are not designed to work with sent tokens.
   2. Allows users to send their tokens anywhere with one function `transfer`. No difference between is the receiver a contract or not. No need to learn how token contract is working for regular user to send tokens.
   3. Allows contract developers to handle incoming token transactions.
