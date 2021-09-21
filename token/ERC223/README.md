@@ -17,4 +17,6 @@ This set of interfaces and contracts are all related to the [ERC223 token standa
 
 The token behavior itself is implemented in the core contracts: `IERC223`, `ERC223`.
 
-Additionally there are interfaces used to develop contracts that react to token movements: `IERC223Recipient`.
+Additionally there are interfaces used to develop contracts that handle incoming token transfers: `IERC223Recipient`.
+
+Advanced token contract that supports calls of custom token handler functions is implemented as `ERC223CustomFallback.sol`.
