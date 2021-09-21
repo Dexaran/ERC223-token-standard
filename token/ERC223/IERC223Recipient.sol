@@ -15,6 +15,8 @@ abstract contract IERC223Recipient {
         bytes   data;
     }
     
+    ERC223TransferInfo private tkn;
+    
 /**
  * @dev Standard ERC223 function that will handle incoming token transfers.
  *
@@ -33,7 +35,7 @@ abstract contract IERC223Recipient {
          * tkn.token_contract is most likely equal to msg.sender because the token contract typically invokes this function
         */
         tkn.token_contract = msg.sender;
-        tkn.sender         = _sender;
+        tkn.sender         = _from;
         tkn.value          = _value;
         tkn.data           = _data;
         
