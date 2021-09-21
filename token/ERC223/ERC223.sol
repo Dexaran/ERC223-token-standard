@@ -9,9 +9,9 @@ import "https://github.com/Dexaran/ERC223-token-standard/blob/development/utils/
  */
 contract ERC223Token is IERC223 {
 
-    string private _name;
-    string private _symbol;
-    uint8 private _decimals;
+    string  private _name;
+    string  private _symbol;
+    uint8   private _decimals;
     uint256 private _totalSupply;
     
     mapping(address => uint256) public balances; // List of user balances.
@@ -28,8 +28,8 @@ contract ERC223Token is IERC223 {
      
     constructor(string memory new_name, string memory new_symbol, uint8 new_decimals)
     {
-        _name = new_name;
-        _symbol = new_symbol;
+        _name     = new_name;
+        _symbol   = new_symbol;
         _decimals = new_decimals;
     }
 
@@ -106,8 +106,7 @@ contract ERC223Token is IERC223 {
         balances[msg.sender] = balances[msg.sender] - _value;
         balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
-            IERC223Recipient receiver = IERC223Recipient(_to);
-            receiver.tokenReceived(msg.sender, _value, _data);
+            IERC223Recipient(_to).tokenReceived(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
         return true;
@@ -124,14 +123,13 @@ contract ERC223Token is IERC223 {
      */
     function transfer(address _to, uint _value) public override returns (bool success)
     {
-        bytes memory empty = hex"00000000";
+        bytes memory _empty = hex"00000000";
         balances[msg.sender] = balances[msg.sender] - _value;
         balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
-            IERC223Recipient receiver = IERC223Recipient(_to);
-            receiver.tokenReceived(msg.sender, _value, empty);
+            IERC223Recipient(_to).tokenReceived(msg.sender, _value, _empty);
         }
-        emit Transfer(msg.sender, _to, _value, empty);
+        emit Transfer(msg.sender, _to, _value, _empty);
         return true;
     }
 }
