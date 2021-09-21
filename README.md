@@ -101,5 +101,4 @@ For example decentralized exchange will no more need to require users to call `a
 
 The most important here is a call of `tokenReceived` when performing a transaction to a contract.
 
-ERC223 EIP https://github.com/ethereum/EIPs/issues/223
 ERC20 EIP https://github.com/ethereum/EIPs/issues/20
