@@ -1,13 +1,7 @@
 pragma solidity ^0.8.0;
 
 /**
- * @dev Interface of the ERC777Token standard as defined in the EIP.
- *
- * This contract uses the
- * [ERC1820 registry standard](https://eips.ethereum.org/EIPS/eip-1820) to let
- * token holders and recipients react to token movements by using setting implementers
- * for the associated interfaces in said registry. See `IERC1820Registry` and
- * `ERC1820Implementer`.
+ * @dev Interface of the ERC223 standard token as defined in the EIP.
  */
 
 abstract contract IERC223 {
