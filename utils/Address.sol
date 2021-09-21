@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.8.0;
 
 /**
  * @dev Collection of functions related to the address type
@@ -30,6 +30,6 @@ library Address {
      * simply a type cast: the actual underlying value is not changed.
      */
     function toPayable(address account) internal pure returns (address payable) {
-        return address(uint160(account));
+        return payable(account);
     }
 }
