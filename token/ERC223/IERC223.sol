@@ -10,7 +10,7 @@ pragma solidity ^0.8.0;
  * `ERC1820Implementer`.
  */
 
-contract IERC223 {
+abstract contract IERC223 {
     /**
      * @dev Returns the total supply of the token.
      */
@@ -19,19 +19,19 @@ contract IERC223 {
     /**
      * @dev Returns the balance of the `who` address.
      */
-    function balanceOf(address who) public view returns (uint);
+    function balanceOf(address who) public virtual view returns (uint);
         
     /**
      * @dev Transfers `value` tokens from `msg.sender` to `to` address
      * and returns `true` on success.
      */
-    function transfer(address to, uint value) public returns (bool success);
+    function transfer(address to, uint value) public virtual returns (bool success);
         
     /**
      * @dev Transfers `value` tokens from `msg.sender` to `to` address with `data` parameter
      * and returns `true` on success.
      */
-    function transfer(address to, uint value, bytes memory data) public returns (bool success);
+    function transfer(address to, uint value, bytes memory data) public virtual returns (bool success);
      
      /**
      * @dev Event that is fired on successful transfer.
