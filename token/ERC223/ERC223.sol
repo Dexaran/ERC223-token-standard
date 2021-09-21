@@ -109,6 +109,7 @@ contract ERC223Token is IERC223 {
             IERC223Recipient(_to).tokenReceived(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value);
+        emit TransferData(_data);
         return true;
     }
     
@@ -130,6 +131,7 @@ contract ERC223Token is IERC223 {
             IERC223Recipient(_to).tokenReceived(msg.sender, _value, _empty);
         }
         emit Transfer(msg.sender, _to, _value);
+        emit TransferData(_empty);
         return true;
     }
 }
