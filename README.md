@@ -14,10 +14,6 @@ Main ERC223 contracts:
 
 - [ERC223Burnable.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223Burnable.sol): Burning functionality implementation for ERC223 tokens. Use `contract MyToken is ERC223Burnable` to make your token burnable. Allows any address to burn its tokens by calling the `burn` function of the contract. There is no possibility to burn someone else's tokens in this implementation.
 
-### Minimal viable implementation of the token, ready for use.
-
-https://github.com/Dexaran/ERC223Token
-
 ## ERC223 token standard.
 
 ERC20 token standard suffers [critical problems](https://medium.com/@dexaran820/erc20-token-standard-critical-problems-3c10fd48657b), that caused loss of approximately $3,000,000 at the moment (31 Dec, 2017). The main and the most important is lack of event handling mechanism of ERC20 standard.
