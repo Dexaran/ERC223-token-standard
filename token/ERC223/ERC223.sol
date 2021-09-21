@@ -36,7 +36,7 @@ contract ERC223Token is IERC223 {
     /**
      * @dev Returns the name of the token.
      */
-    function name() public view returns (string memory)
+    function name() public view override returns (string memory)
     {
         return _name;
     }
@@ -45,7 +45,7 @@ contract ERC223Token is IERC223 {
      * @dev Returns the symbol of the token, usually a shorter version of the
      * name.
      */
-    function symbol() public view returns (string memory)
+    function symbol() public view override returns (string memory)
     {
         return _symbol;
     }
@@ -63,7 +63,7 @@ contract ERC223Token is IERC223 {
      * no way affects any of the arithmetic of the contract, including
      * {IERC223-balanceOf} and {IERC223-transfer}.
      */
-    function decimals() public view returns (uint8)
+    function decimals() public view override returns (uint8)
     {
         return _decimals;
     }
@@ -83,9 +83,9 @@ contract ERC223Token is IERC223 {
      * @param _owner   The address whose balance will be returned.
      * @return balance Balance of the `_owner`.
      */
-    function balanceOf(address account) public view override returns (uint256)
+    function balanceOf(address _owner) public view override returns (uint256)
     {
-        return balances[account];
+        return balances[_owner];
     }
     
     /**
@@ -122,7 +122,7 @@ contract ERC223Token is IERC223 {
      * @param _to    Receiver address.
      * @param _value Amount of tokens that will be transferred.
      */
-    function transfer(address _to, uint _value) public returns (bool success)
+    function transfer(address _to, uint _value) public override returns (bool success)
     {
         bytes memory empty = hex"00000000";
         balances[msg.sender] = balances[msg.sender] - _value;
