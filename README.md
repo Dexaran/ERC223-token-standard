@@ -4,9 +4,9 @@
 
 Main ERC223 contracts:
 
-- [IERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223.sol): Token interface. The minimal common API ERC223 tokens and receivers to interact with each other.
-- [ERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223.sol): Token contract. Defines logic of the base token of ERC223 standard.
-- [Recipient interface](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol): A dummy receiver that is intended to accept ERC223 tokens. Use `contract MyContract is IERC223Recipient` to make contract capable of accepting ERC223 token transactions. Otherwise token transfers to the contract that is not intended to accept ERC223 tokens will be reverted.
+- [IERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223.sol): Token interface. The minimal common API ERC223 tokens and receivers must implement in order to interact with each other.
+- [ERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223.sol): Token contract. Defines logic of the basic ERC223 token. This functionality can be extended with additional functions (such as `burn()`, `mint()`, ownership or `approve / transferFrom` pattern of ERC20).
+- [Recipient interface](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol): A dummy receiver that is intended to accept ERC223 tokens. Use `contract MyContract is IERC223Recipient` to make contract capable of accepting ERC223 token transactions. Contract that does not support IERC223Recipient interface can receive tokens if this contract implements a permissive fallback function (this method of token receiving is not recommended). If a contract does not implement IERC223Recipient `tokenReceived` function and does not implement a permissive fallback function then this contract can not receive ERC223 tokens.
 
 ### Extensions of the base functionality
 
