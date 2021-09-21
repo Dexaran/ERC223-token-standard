@@ -1,21 +1,85 @@
 pragma solidity ^0.8.0;
 
-import "./IERC223.sol";
-import "./IERC223Recipient.sol";
-import "../../utils/Address.sol";
+import "https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223.sol";
+import "https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol";
+import "https://github.com/Dexaran/ERC223-token-standard/blob/development/utils/Address.sol";
 
 /**
  * @title Reference implementation of the ERC223 standard token.
  */
 contract ERC223Token is IERC223 {
+
+    string private _name;
+    string private _symbol;
+    uint8 private _decimals;
+    uint256 private _totalSupply;
+    
+    mapping(address => uint256) public balances; // List of user balances.
+
     /**
-     * @dev See `IERC223.totalSupply`.
+     * @dev Sets the values for {name} and {symbol}, initializes {decimals} with
+     * a default value of 18.
+     *
+     * To select a different value for {decimals}, use {_setupDecimals}.
+     *
+     * All three of these values are immutable: they can only be set once during
+     * construction.
      */
-    function totalSupply() public view returns (uint256) {
+     
+    constructor(string memory new_name, string memory new_symbol, uint8 new_decimals) {
+        _name = new_name;
+        _symbol = new_symbol;
+        _decimals = new_decimals;
+    }
+
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() public view returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev Returns the symbol of the token, usually a shorter version of the
+     * name.
+     */
+    function symbol() public view returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev Returns the number of decimals used to get its user representation.
+     * For example, if `decimals` equals `2`, a balance of `505` tokens should
+     * be displayed to a user as `5,05` (`505 / 10 ** 2`).
+     *
+     * Tokens usually opt for a value of 18, imitating the relationship between
+     * Ether and Wei. This is the value {ERC223} uses, unless {_setupDecimals} is
+     * called.
+     *
+     * NOTE: This information is only used for _display_ purposes: it in
+     * no way affects any of the arithmetic of the contract, including
+     * {IERC223-balanceOf} and {IERC223-transfer}.
+     */
+    function decimals() public view returns (uint8) {
+        return _decimals;
+    }
+
+    /**
+     * @dev See {IERC223-totalSupply}.
+     */
+    function totalSupply() public view override returns (uint256) {
         return _totalSupply;
     }
 
-    mapping(address => uint) balances; // List of user balances.
+    
+    /**
+     * @dev Returns balance of the `_owner`.
+     *
+     * @param _owner   The address whose balance will be returned.
+     * @return balance Balance of the `_owner`.
+     */
+    function balanceOf(address account) public view override returns (uint256) {
+        return balances[account];
     
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
@@ -60,16 +124,5 @@ contract ERC223Token is IERC223 {
         }
         emit Transfer(msg.sender, _to, _value, empty);
         return true;
-    }
-
-    
-    /**
-     * @dev Returns balance of the `_owner`.
-     *
-     * @param _owner   The address whose balance will be returned.
-     * @return balance Balance of the `_owner`.
-     */
-    function balanceOf(address _owner) public view returns (uint balance) {
-        return balances[_owner];
     }
 }
