@@ -99,7 +99,7 @@ contract ERC223Token is IERC223 {
      * @param _value Amount of tokens that will be transferred.
      * @param _data  Transaction metadata.
      */
-    function transfer(address _to, uint _value, bytes memory _data) public override returns (bool success)
+    function transfer(address _to, uint _value, bytes calldata _data) public override returns (bool success)
     {
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
