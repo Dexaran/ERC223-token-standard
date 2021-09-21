@@ -11,10 +11,11 @@ pragma solidity ^0.8.0;
  */
 
 abstract contract IERC223 {
-    /**
-     * @dev Returns the total supply of the token.
-     */
-    uint public _totalSupply;
+    
+    function name()        public view virtual returns (string memory);
+    function symbol()      public view virtual returns (string memory);
+    function decimals()    public view virtual returns (uint8);
+    function totalSupply() public view virtual returns (uint256);
     
     /**
      * @dev Returns the balance of the `who` address.
