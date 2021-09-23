@@ -8,6 +8,7 @@ abstract contract IERC223 {
     
     function name()        public view virtual returns (string memory);
     function symbol()      public view virtual returns (string memory);
+    function standard()    public view virtual returns (string memory);
     function decimals()    public view virtual returns (uint8);
     function totalSupply() public view virtual returns (uint256);
     
