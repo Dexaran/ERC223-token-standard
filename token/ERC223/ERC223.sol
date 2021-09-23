@@ -34,6 +34,14 @@ contract ERC223Token is IERC223 {
     }
 
     /**
+     * @dev ERC223 tokens must explicitly return "erc223" on standard() function call.
+     */
+    function standard() public pure override returns (string memory)
+    {
+        return "erc223";
+    }
+
+    /**
      * @dev Returns the name of the token.
      */
     function name() public view override returns (string memory)
