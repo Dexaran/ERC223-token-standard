@@ -1,16 +1,16 @@
 ### Please make sure you are at the [development branch](https://github.com/Dexaran/ERC223-token-standard/tree/development)  because now it is the main branch. Development branch includes the latest updates.
 
-### EIP 223
+### EIP-223
 
 Read the original discussion and formal description here: https://github.com/ethereum/eips/issues/223
 
 ### Current implementation
 
-Main ERC223 contracts:
+Main ERC-223 contracts:
 
-- [IERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223.sol): Token interface. The minimal common API ERC223 tokens and receivers must implement in order to interact with each other.
-- [ERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223.sol): Token contract. Defines logic of the basic ERC223 token. This functionality can be extended with additional functions (such as `burn()`, `mint()`, ownership or `approve / transferFrom` pattern of ERC20).
-- [Recipient interface](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol): A dummy receiver that is intended to accept ERC223 tokens. Use `contract MyContract is IERC223Recipient` to make contract capable of accepting ERC223 token transactions. Contract that does not support IERC223Recipient interface can receive tokens if this contract implements a permissive fallback function (this method of token receiving is not recommended). If a contract does not implement IERC223Recipient `tokenReceived` function and does not implement a permissive fallback function then this contract can not receive ERC223 tokens.
+- [IERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223.sol): Token interface. The minimal common API ERC-223 tokens and receivers must implement in order to interact with each other.
+- [ERC223.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223.sol): Token contract. Defines logic of the basic ERC-223 token. This functionality can be extended with additional functions (such as `burn()`, `mint()`, ownership or `approve / transferFrom` pattern of ERC20).
+- [Recipient interface](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/IERC223Recipient.sol): A dummy receiver that is intended to accept ERC-223 tokens. Use `contract MyContract is IERC223Recipient` to make contract capable of accepting ERC-223 token transactions. Contract that does not support IERC223Recipient interface can receive tokens if this contract implements a permissive fallback function (this method of token receiving is not recommended). If a contract does not implement IERC223Recipient `tokenReceived` function and does not implement a permissive fallback function then this contract can not receive ERC-223 tokens.
 
 ### Extensions of the base functionality
 
@@ -20,9 +20,9 @@ Main ERC223 contracts:
 
 ## ERC223 token standard.
 
-ERC20 token standard suffers [critical problems](https://medium.com/@dexaran820/erc20-token-standard-critical-problems-3c10fd48657b), that caused loss of approximately $3,000,000 at the moment (31 Dec, 2017). The main and the most important problem is the lack of event handling mechanism in ERC20 standard.
+ERC-20 token standard suffers [critical problems](https://medium.com/@dexaran820/erc20-token-standard-critical-problems-3c10fd48657b), that caused loss of approximately $3,000,000 at the moment (31 Dec, 2017). The main and the most important problem is the lack of event handling mechanism in ERC20 standard.
 
-ERC223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20). It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development. It is also a more secure standard as it doesn't allow token transfers to contracts that do not explicitly support token receiving.
+ERC-223 is a superset of the [ERC20](https://github.com/ethereum/EIPs/issues/20). It is a step forward towards economic abstraction at the application/contract level allowing the use of tokens as first class value transfer assets in smart contract development. It is also a more secure standard as it doesn't allow token transfers to contracts that do not explicitly support token receiving.
 
 [See EIP discussion](https://github.com/ethereum/EIPs/issues/223)
 
@@ -44,14 +44,14 @@ contract ERC223 {
 }
 ```
 
-### The main problems of ERC20 that ERC223 solves
+### The main problems of ERC-20 that ERC-223 solves
 
   1. **Lost tokens**: there are two different ways to transfer ERC20 tokens depending on is the receiver address a contract or a wallet address. You should call `transfer` to send tokens to a wallet address or call `approve` on token contract then `transferFrom` on receiver contract to send tokens to contract. Accidentally call of `transfer` function to a contract address will cause a loss of tokens inside receiver contract.
   2. **Impossibility of handling incoming token transactions / lack of event handling in ERC20**: ERC20 token transaction is a call of `transfer` function inside token contract. ERC20 token contract is not notifying receiver that transaction occurs. Also there is no way to handle incoming token transactions on contract and no way to reject any non-supported tokens.
   3. **Optimization of ERC20 address-to-contract communication**: You should call `approve` on token contract and then call `transferFrom` on another contract when you want to deposit your tokens into it. In fact address-to-contract transfer is a couple of two different transactions in ERC20. It also costs twice more gas compared to ERC223 transfers. In ERC223 address-to-contract transfer is a single transaction just like address-to-address transfer.
   4. **Ether transactions and token transactions behave differently**: one of the goals of developing ERC223 was to make token transactions similar to Ether transactions to avoid users mistakes when transferring tokens and make interaction with token transactions easier for contract developers.
 
-### ERC223 advantages.
+### ERC-223 advantages.
 
   1. Provides a possibility to avoid accidentally lost tokens inside contracts that are not designed to work with sent tokens.
   2. Allows users to send their tokens anywhere with one function `transfer`. No difference between is the receiver a contract or not. No need to learn how token contract is working for regular user to send tokens.
@@ -60,15 +60,15 @@ contract ERC223 {
   5. Allows to deposit tokens into contract with a single transaction. Prevents extra blockchain bloating.
   6. Makes token transactions similar to Ether transactions.
 
-  ERC223 tokens are backwards compatible with ERC20 tokens. It means that ERC223 supports every ERC20 functional and contracts or services working with ERC20 tokens will work with ERC223 tokens correctly.
-ERC223 tokens should be sent by calling `transfer` function on token contract with no difference is receiver a contract or a wallet address. If the receiver is a wallet ERC223 token transfer will be same to ERC20 transfer. If the receiver is a contract ERC223 token contract will try to call `tokenReceived` function on receiver contract. If there is no `tokenReceived` function on receiver contract transaction will fail. `tokenReceived` function is analogue of `fallback` function for Ether transactions. It can be used to handle incoming transactions. There is a way to attach `bytes _data` to token transaction similar to `_data` attached to Ether transactions. It will pass through token contract and will be handled by `tokenReceived` function on receiver contract. There is also a way to call `transfer` function on ERC223 token contract with no data argument or using ERC20 ABI with no data on `transfer` function. In this case `_data` will be empty bytes array.
+  ERC-223 tokens are backwards compatible with ERC-20 tokens. It means that ERC-223 supports every ERC-20 functional and contracts or services working with ERC-20 tokens will work with ERC-223 tokens correctly.
+ERC-223 tokens should be sent by calling `transfer` function on token contract with no difference is receiver a contract or a wallet address. If the receiver is a wallet ERC-223 token transfer will be same to ERC-20 transfer. If the receiver is a contract ERC-223 token contract will try to call `tokenReceived` function on receiver contract. If there is no `tokenReceived` function on receiver contract transaction will fail. `tokenReceived` function is analogue of `fallback` function for Ether transactions. It can be used to handle incoming transactions. There is a way to attach `bytes _data` to token transaction similar to `_data` attached to Ether transactions. It will pass through token contract and will be handled by `tokenReceived` function on receiver contract. There is also a way to call `transfer` function on ERC-223 token contract with no data argument or using ERC-20 ABI with no data on `transfer` function. In this case `_data` will be empty bytes array.
 
-### The reason of designing ERC223 token standard.
-Here is a description of the ERC20 token standard problem that is solved by ERC223:
+### The reason of designing ERC-223 token standard.
+Here is a description of the ERC-20 token standard problem that is solved by ERC-223:
 
-ERC20 token standard is leading to money losses for end users. The main problem is lack of possibility to handle incoming ERC20 transactions, that were performed via `transfer` function of ERC20 token.
+ERC-20 token standard is leading to money losses for end users. The main problem is lack of possibility to handle incoming ERC-20 transactions, that were performed via `transfer` function of ERC-20 token.
 
-If you send 100 ETH to a contract that is not intended to work with Ether, then it will reject a transaction and nothing bad will happen. If you will send 100 ERC20 tokens to a contract that is not intended to work with ERC20 tokens, then it will not reject tokens because it cant recognize an incoming transaction. As the result, your tokens will get stuck at the contracts balance.
+If you send 100 ETH to a contract that is not intended to work with Ether, then it will reject a transaction and nothing bad will happen. If you will send 100 ERC-20 tokens to a contract that is not intended to work with ERC-20 tokens, then it will not reject tokens because it cant recognize an incoming transaction. As the result, your tokens will get stuck at the contracts balance.
 
 How much ERC20 tokens are currently lost (31 Dec, 2017):
 
@@ -90,7 +90,7 @@ How much ERC20 tokens are currently lost (31 Dec, 2017):
 
 9. MANA, **$101,967** lost. [watch on Etherscan](https://etherscan.io/address/0x0f5d2fb29fb7d3cfee444a200298f468908cc942)
 
-Another disadvantages of ERC20 that ERC223 will solve: 
+Another disadvantages of ERC-20 that ERC-223 solves: 
 1. Lack of `transfer` handling possibility.
 2. Loss of tokens.
 3. Token-transactions should match Ethereum ideology of uniformity. When a user wants to transfer tokens, he should always call `transfer`. It doesn't matter if the user is depositing to a contract or sending to an externally owned account.
