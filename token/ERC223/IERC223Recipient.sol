@@ -24,7 +24,7 @@ abstract contract IERC223Recipient {
  * @param _value Amount of tokens.
  * @param _data  Transaction metadata.
  */
-    function tokenReceived(address _from, uint _value, bytes memory _data) public virtual
+    function tokenReceived(address _from, uint _value, bytes memory _data) public virtual returns (bytes4)
     {
         /**
          * @dev Note that inside of the token transaction handler the actual sender of token transfer is accessible via the tkn.sender variable
@@ -40,5 +40,7 @@ abstract contract IERC223Recipient {
         tkn.data           = _data;
         
         // ACTUAL CODE
+
+        return 0x8943ec02;
     }
 }
