@@ -36,7 +36,7 @@ contract ERC223Token is IERC223 {
     /**
      * @dev Returns the name of the token.
      */
-    function name() public view override returns (string memory)
+    function name() public view virtual override returns (string memory)
     {
         return _name;
     }
@@ -45,7 +45,7 @@ contract ERC223Token is IERC223 {
      * @dev Returns the symbol of the token, usually a shorter version of the
      * name.
      */
-    function symbol() public view override returns (string memory)
+    function symbol() public view virtual override returns (string memory)
     {
         return _symbol;
     }
@@ -63,7 +63,7 @@ contract ERC223Token is IERC223 {
      * no way affects any of the arithmetic of the contract, including
      * {IERC223-balanceOf} and {IERC223-transfer}.
      */
-    function decimals() public view override returns (uint8)
+    function decimals() public view virtual override returns (uint8)
     {
         return _decimals;
     }
