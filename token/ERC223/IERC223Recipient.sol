@@ -1,7 +1,7 @@
 pragma solidity ^0.8.0;
 
  /**
- * @title Contract that will work with ERC223 tokens.
+ * @title Contract that will work with ERC-223 tokens.
  */
  
 abstract contract IERC223Recipient {
