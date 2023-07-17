@@ -106,8 +106,7 @@ contract ERC223Token is IERC223 {
         balances[msg.sender] = balances[msg.sender] - _value;
         balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
-            bytes4 _ret = IERC223Recipient(_to).tokenReceived(msg.sender, _value, _data);
-            require(_ret == 0x8943ec02, "ERC-223: The callback function call failure.");
+            IERC223Recipient(_to).tokenReceived(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
         return true;
@@ -128,8 +127,7 @@ contract ERC223Token is IERC223 {
         balances[msg.sender] = balances[msg.sender] - _value;
         balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
-            bytes4 _ret = IERC223Recipient(_to).tokenReceived(msg.sender, _value, _empty);
-            require(_ret == 0x8943ec02, "ERC-223: The callback function call failure.");
+            IERC223Recipient(_to).tokenReceived(msg.sender, _value, _empty);
         }
         emit Transfer(msg.sender, _to, _value, _empty);
         return true;
