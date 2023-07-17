@@ -106,6 +106,10 @@ contract ERC223Token is IERC223 {
         balances[msg.sender] = balances[msg.sender] - _value;
         balances[_to] = balances[_to] + _value;
         if(Address.isContract(_to)) {
+            // It is subjective if the contract call must fail or not
+            // when ERC-223 token transfer does not trigger the `tokenReceived` function
+            // by the standard if the receiver did not explicitly rejected the call
+            // the transfer can be considered valid.
             IERC223Recipient(_to).tokenReceived(msg.sender, _value, _data);
         }
         emit Transfer(msg.sender, _to, _value, _data);
