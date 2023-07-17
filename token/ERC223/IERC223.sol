@@ -1,7 +1,7 @@
 pragma solidity ^0.8.0;
 
 /**
- * @dev Interface of the ERC223 standard token as defined in the EIP.
+ * @dev Interface of the ERC223 standard token as defined in the EIP-223 https://eips.ethereum.org/EIPS/eip-223.
  */
 
 abstract contract IERC223 {
