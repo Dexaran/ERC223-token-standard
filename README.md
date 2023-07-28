@@ -12,9 +12,9 @@ Main ERC-223 contracts:
 
 ### Extensions of the base functionality
 
-- [ERC223Mintable.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223Mintable.sol): Minting functinality for ERC223 tokens. Use `contract MyToken is ERC223Mintable` to make your token mintable. The address you used to deploy this contract will receive Minter functinality and will be allowed to assign new minters and increase the totalSupply of the token.
+- [ERC223Mintable.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/extensions/ERC223Mintable.sol): Minting functinality for ERC223 tokens.
 
-- [ERC223Burnable.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/ERC223Burnable.sol): Burning functionality implementation for ERC223 tokens. Use `contract MyToken is ERC223Burnable` to make your token burnable. Allows any address to burn its tokens by calling the `burn` function of the contract. There is no possibility to burn someone else's tokens in this implementation.
+- [ERC223Burnable.sol](https://github.com/Dexaran/ERC223-token-standard/blob/development/token/ERC223/extensions/ERC223Burnable.sol): Burning functionality implementation for ERC223 tokens. Allows any address to burn its tokens by calling the `burn` function of the contract.
 
 ## ERC223 token standard.
 
