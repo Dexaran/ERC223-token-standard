@@ -127,6 +127,13 @@ contract ERC223Token is IERC223 {
      */
     function transfer(address _to, uint _value) public override returns (bool success)
     {
-        return transfer(_to, _value, hex"00000000");
+        bytes memory _empty = hex"00000000";
+        balances[msg.sender] = balances[msg.sender] - _value;
+        balances[_to] = balances[_to] + _value;
+        if(Address.isContract(_to)) {
+            IERC223Recipient(_to).tokenReceived(msg.sender, _value, _empty);
+        }
+        emit Transfer(msg.sender, _to, _value, _empty);
+        return true;
     }
 }
