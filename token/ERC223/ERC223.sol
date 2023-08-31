@@ -14,7 +14,7 @@ contract ERC223Token is IERC223 {
     uint8   private _decimals;
     uint256 private _totalSupply;
     
-    mapping(address => uint256) public balances; // List of user balances.
+    mapping(address => uint256) private balances; // List of user balances.
 
     /**
      * @dev Sets the values for {name} and {symbol}, initializes {decimals} with
